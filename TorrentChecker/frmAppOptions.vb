@@ -14,6 +14,7 @@
         chkShowJournalTab.Checked = AppOptions("show_journal_tab")
         chkAutoChecking.Checked = AppOptions("auto_cheking")
         chkWriteFatalErrors.Checked = AppOptions("write_fatal_errors")
+        chkCheckUpdates.Checked = AppOptions("check_for_updates")
         chkConfirmExit.Checked = AppOptions("confirm_exit")
         txtCheckInterval.Text = CStr(CHECK_INTERVAL / 60000)
         txtTorrentsStoreTime.Text = CStr(TORRENTS_MAX_STORETIME / (24 * 60 * 60))
@@ -62,6 +63,7 @@
         AppOptions("show_journal_tab") = chkShowJournalTab.Checked
         AppOptions("auto_cheking") = chkAutoChecking.Checked
         AppOptions("write_fatal_errors") = chkWriteFatalErrors.Checked
+        AppOptions("check_for_updates") = chkCheckUpdates.Checked
         AppOptions("confirm_exit") = chkConfirmExit.Checked
         CHECK_INTERVAL = CInt(txtCheckInterval.Text) * 60000
         TORRENTS_MAX_STORETIME = CLng(txtTorrentsStoreTime.Text) * 24 * 60 * 60

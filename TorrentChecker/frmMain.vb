@@ -6,6 +6,8 @@ Imports System.Threading
 Public Class frmMain
     Private HTTP As New clsHTTP
     Private HTTPResult As clsHTTP.HTTPResult
+    Private HTTPUpdate As New clsHTTP
+    Private HTTPUpdateResult As clsHTTP.HTTPResult
     Private TrackerParse As New clsParse
     Private TrackerParseResult As clsParse.ParseResult
     Private bsrcFoundTorrents As New BindingSource
@@ -25,6 +27,8 @@ Public Class frmMain
         For Each ctrl As Control In Me.Controls
             ctrl.Font = FONT_NORMAL
         Next
+
+        lblShowNewVerion.Font = FONT_UNDERLINE
     End Sub
 
     Private Sub frmMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
@@ -52,8 +56,8 @@ Public Class frmMain
             KwListToParamsMapping(0) = 0
             InitializeKeyWordsView()
 
-            enableDoubleBuffer(dgvTorrents)
-            enableDoubleBuffer(dgvKeyWords)
+            EnableDoubleBuffer(dgvTorrents)
+            EnableDoubleBuffer(dgvKeyWords)
 
             'initialize dgvTorrents
             dgvTorrents.AutoGenerateColumns = False
@@ -100,6 +104,8 @@ Public Class frmMain
             If AppOptions("auto_cheking") Then
                 StartChecking()
             End If
+
+            CheckLatestUpdate()
         Catch ex As Exception
             MsgBox("Ошибка загрузки программы!" & vbCrLf & GetProperExceptionText(ex), MsgBoxStyle.Critical + MsgBoxStyle.OkOnly)
         Finally
@@ -337,11 +343,11 @@ Public Class frmMain
 
                 'join new and stored torrents for updating and deleting
                 Dim matched_rows As IEnumerable(Of Object) = From new_t In new_torrents_dt.AsEnumerable()
-                                     Join old_t In dtStoredTorrents.AsEnumerable() On
-                                     new_t.Field(Of Trackers)(Columns.tracker_id.ToString) Equals old_t.Field(Of Trackers)(Columns.tracker_id.ToString) _
-                                     And new_t.Field(Of String)(Columns.topic_id.ToString) Equals old_t.Field(Of String)(Columns.topic_id.ToString) _
-                                     And new_t.Field(Of String)(Columns.torrent_unique_identifier.ToString) Equals old_t.Field(Of String)(Columns.torrent_unique_identifier.ToString)
-                                     Select new_t, old_t
+                                                             Join old_t In dtStoredTorrents.AsEnumerable() On
+                                                             new_t.Field(Of Trackers)(Columns.tracker_id.ToString) Equals old_t.Field(Of Trackers)(Columns.tracker_id.ToString) _
+                                                             And new_t.Field(Of String)(Columns.topic_id.ToString) Equals old_t.Field(Of String)(Columns.topic_id.ToString) _
+                                                             And new_t.Field(Of String)(Columns.torrent_unique_identifier.ToString) Equals old_t.Field(Of String)(Columns.torrent_unique_identifier.ToString)
+                                                             Select new_t, old_t
 
                 For Each dr As Object In matched_rows.ToList()
                     'update time
@@ -485,8 +491,8 @@ Public Class frmMain
                                     If HTTPResult.Headers.ContentType.MediaType = "application/x-bittorrent" Then
                                         SaveTorrent(HTTPResult.ResultB, command_line, tracker_name)
                                     Else
-                                        LogOutput(String.Format("{0} ({1}): {2}", "Ошибка скачивания торрент-файла", tracker_id.ToString, _
-                                                    "ожидался заголовок application/x-bittorrent, но получен " & HTTPResult.Headers.ContentType.MediaType), _
+                                        LogOutput(String.Format("{0} ({1}): {2}", "Ошибка скачивания торрент-файла", tracker_id.ToString,
+                                                    "ожидался заголовок application/x-bittorrent, но получен " & HTTPResult.Headers.ContentType.MediaType),
                                                     True, Encoding.UTF8.GetString(HTTPResult.ResultB, 0, HTTPResult.ResultB.Length))
                                     End If
                                 Else
@@ -1359,6 +1365,7 @@ Public Class frmMain
 
     Private Sub ApplicationExit()
         HTTP.Cancel()
+        HTTPUpdate.Cancel()
         picCaptcha.Image.Dispose()
         SaveSettings()
     End Sub
@@ -1562,5 +1569,47 @@ Public Class frmMain
 
     Private Sub dgvKeyWords_MouseMove(sender As Object, e As MouseEventArgs) Handles dgvKeyWords.MouseMove
         If Not dgvKeyWords.Focused AndAlso dgvKeyWords.CanFocus Then dgvKeyWords.Focus()
+    End Sub
+
+    Private Async Sub CheckLatestUpdate()
+        Try
+            If Not AppOptions("check_for_updates") Then Exit Sub
+
+            HTTPUpdate.Cancel()
+
+            If ProxySettings("use_proxy") Then
+                HTTPUpdate.UseProxy = True
+                HTTPUpdate.SetProxy(ProxySettings)
+            Else
+                HTTPUpdate.UseProxy = False
+            End If
+
+            HTTPUpdateResult = Await HTTPUpdate.HTTPGet(AppRepository("repository_api"))
+            If HTTPUpdateResult.Success Then
+                If HTTPUpdateResult.Result.Length <> 0 Then
+                    Dim tag_name As String = Regex.Match(HTTPUpdateResult.Result, """tag_name"":""(.+?)""", RegexOptions.IgnoreCase, REGEX_TIMEOUT).Groups(1).Value
+                    If tag_name.Length <> 0 AndAlso tag_name <> APP_VERSION Then
+                        lblShowNewVerion.Visible = True
+                        lblShowNewVerion.Text = String.Format("{0}: {1}. {2}: {3}", "Доступна новая версия", tag_name, "Текущая версия", APP_VERSION)
+                    End If
+                End If
+            End If
+        Catch ex As Exception
+            LogOutput(String.Format("{0}: {1}", "Ошибка проверки обновлений", GetProperExceptionText(ex)))
+        End Try
+    End Sub
+
+    Private Sub tmrCheckUpdate_Tick(sender As Object, e As EventArgs) Handles tmrCheckUpdate.Tick
+        CheckLatestUpdate()
+    End Sub
+
+    Private Sub lblShowNewVerion_Click(sender As Object, e As EventArgs) Handles lblShowNewVerion.Click
+        'open browser with the repository
+
+        Try
+            System.Diagnostics.Process.Start(AppRepository("repository_url"))
+        Catch ex As Exception
+            MsgBox("Не могу открыть браузер" & vbCrLf & GetProperExceptionText(ex), MsgBoxStyle.Critical + MsgBoxStyle.OkOnly)
+        End Try
     End Sub
 End Class
