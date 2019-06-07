@@ -47,6 +47,7 @@ Partial Class frmAppOptions
         Me.chkWriteFatalErrors = New System.Windows.Forms.CheckBox()
         Me.chkShowJournalTab = New System.Windows.Forms.CheckBox()
         Me.tlpToolTip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.chkCheckUpdates = New System.Windows.Forms.CheckBox()
         Me.grpTrayBox.SuspendLayout()
         Me.grpRunBox.SuspendLayout()
         Me.gprOtherBox.SuspendLayout()
@@ -85,7 +86,7 @@ Partial Class frmAppOptions
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(6, 96)
+        Me.Label1.Location = New System.Drawing.Point(6, 119)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(110, 13)
         Me.Label1.TabIndex = 4
@@ -93,18 +94,18 @@ Partial Class frmAppOptions
         '
         'txtCheckInterval
         '
-        Me.txtCheckInterval.Location = New System.Drawing.Point(246, 93)
+        Me.txtCheckInterval.Location = New System.Drawing.Point(246, 116)
         Me.txtCheckInterval.MaxLength = 3
         Me.txtCheckInterval.Name = "txtCheckInterval"
         Me.txtCheckInterval.Size = New System.Drawing.Size(41, 20)
-        Me.txtCheckInterval.TabIndex = 8
+        Me.txtCheckInterval.TabIndex = 10
         Me.txtCheckInterval.Text = "5"
         Me.txtCheckInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(293, 96)
+        Me.Label2.Location = New System.Drawing.Point(293, 119)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(37, 13)
         Me.Label2.TabIndex = 6
@@ -122,26 +123,26 @@ Partial Class frmAppOptions
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(245, 393)
+        Me.btnSave.Location = New System.Drawing.Point(245, 412)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(98, 26)
-        Me.btnSave.TabIndex = 11
+        Me.btnSave.TabIndex = 13
         Me.btnSave.Text = "Сохранить"
         Me.btnSave.UseVisualStyleBackColor = True
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(349, 393)
+        Me.btnCancel.Location = New System.Drawing.Point(349, 412)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(98, 26)
-        Me.btnCancel.TabIndex = 12
+        Me.btnCancel.TabIndex = 14
         Me.btnCancel.Text = "Отмена"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(6, 119)
+        Me.Label3.Location = New System.Drawing.Point(6, 142)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(198, 13)
         Me.Label3.TabIndex = 10
@@ -149,18 +150,18 @@ Partial Class frmAppOptions
         '
         'txtTorrentsStoreTime
         '
-        Me.txtTorrentsStoreTime.Location = New System.Drawing.Point(246, 116)
+        Me.txtTorrentsStoreTime.Location = New System.Drawing.Point(246, 139)
         Me.txtTorrentsStoreTime.MaxLength = 2
         Me.txtTorrentsStoreTime.Name = "txtTorrentsStoreTime"
         Me.txtTorrentsStoreTime.Size = New System.Drawing.Size(41, 20)
-        Me.txtTorrentsStoreTime.TabIndex = 9
+        Me.txtTorrentsStoreTime.TabIndex = 11
         Me.txtTorrentsStoreTime.Text = "30"
         Me.txtTorrentsStoreTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(293, 119)
+        Me.Label4.Location = New System.Drawing.Point(293, 142)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(31, 13)
         Me.Label4.TabIndex = 12
@@ -201,6 +202,7 @@ Partial Class frmAppOptions
         '
         'gprOtherBox
         '
+        Me.gprOtherBox.Controls.Add(Me.chkCheckUpdates)
         Me.gprOtherBox.Controls.Add(Me.chkConfirmExit)
         Me.gprOtherBox.Controls.Add(Me.lblClearCache)
         Me.gprOtherBox.Controls.Add(Me.Label6)
@@ -216,7 +218,7 @@ Partial Class frmAppOptions
         Me.gprOtherBox.Controls.Add(Me.txtTorrentsStoreTime)
         Me.gprOtherBox.Location = New System.Drawing.Point(12, 211)
         Me.gprOtherBox.Name = "gprOtherBox"
-        Me.gprOtherBox.Size = New System.Drawing.Size(435, 176)
+        Me.gprOtherBox.Size = New System.Drawing.Size(435, 195)
         Me.gprOtherBox.TabIndex = 15
         Me.gprOtherBox.TabStop = False
         Me.gprOtherBox.Text = "Разное"
@@ -224,10 +226,10 @@ Partial Class frmAppOptions
         'chkConfirmExit
         '
         Me.chkConfirmExit.AutoSize = True
-        Me.chkConfirmExit.Location = New System.Drawing.Point(9, 71)
+        Me.chkConfirmExit.Location = New System.Drawing.Point(9, 94)
         Me.chkConfirmExit.Name = "chkConfirmExit"
         Me.chkConfirmExit.Size = New System.Drawing.Size(237, 17)
-        Me.chkConfirmExit.TabIndex = 19
+        Me.chkConfirmExit.TabIndex = 9
         Me.chkConfirmExit.Text = "Запрашивать подтверждение при выходе"
         Me.chkConfirmExit.UseVisualStyleBackColor = True
         '
@@ -236,7 +238,7 @@ Partial Class frmAppOptions
         Me.lblClearCache.AutoSize = True
         Me.lblClearCache.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lblClearCache.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.lblClearCache.Location = New System.Drawing.Point(338, 119)
+        Me.lblClearCache.Location = New System.Drawing.Point(338, 142)
         Me.lblClearCache.Name = "lblClearCache"
         Me.lblClearCache.Size = New System.Drawing.Size(77, 13)
         Me.lblClearCache.TabIndex = 18
@@ -245,7 +247,7 @@ Partial Class frmAppOptions
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(293, 143)
+        Me.Label6.Location = New System.Drawing.Point(293, 166)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(70, 13)
         Me.Label6.TabIndex = 17
@@ -253,18 +255,18 @@ Partial Class frmAppOptions
         '
         'txtMaxVisibleResults
         '
-        Me.txtMaxVisibleResults.Location = New System.Drawing.Point(246, 140)
+        Me.txtMaxVisibleResults.Location = New System.Drawing.Point(246, 163)
         Me.txtMaxVisibleResults.MaxLength = 3
         Me.txtMaxVisibleResults.Name = "txtMaxVisibleResults"
         Me.txtMaxVisibleResults.Size = New System.Drawing.Size(41, 20)
-        Me.txtMaxVisibleResults.TabIndex = 10
+        Me.txtMaxVisibleResults.TabIndex = 12
         Me.txtMaxVisibleResults.Text = "100"
         Me.txtMaxVisibleResults.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(6, 143)
+        Me.Label5.Location = New System.Drawing.Point(6, 166)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(126, 13)
         Me.Label5.TabIndex = 15
@@ -290,11 +292,21 @@ Partial Class frmAppOptions
         Me.chkShowJournalTab.Text = "Показывать журнал ошибок"
         Me.chkShowJournalTab.UseVisualStyleBackColor = True
         '
+        'chkCheckUpdates
+        '
+        Me.chkCheckUpdates.AutoSize = True
+        Me.chkCheckUpdates.Location = New System.Drawing.Point(9, 71)
+        Me.chkCheckUpdates.Name = "chkCheckUpdates"
+        Me.chkCheckUpdates.Size = New System.Drawing.Size(144, 17)
+        Me.chkCheckUpdates.TabIndex = 8
+        Me.chkCheckUpdates.Text = "Проверять обновления"
+        Me.chkCheckUpdates.UseVisualStyleBackColor = True
+        '
         'frmAppOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(458, 426)
+        Me.ClientSize = New System.Drawing.Size(458, 444)
         Me.Controls.Add(Me.gprOtherBox)
         Me.Controls.Add(Me.grpRunBox)
         Me.Controls.Add(Me.grpTrayBox)
@@ -340,4 +352,5 @@ Partial Class frmAppOptions
     Friend WithEvents tlpToolTip As System.Windows.Forms.ToolTip
     Friend WithEvents lblClearCache As System.Windows.Forms.Label
     Friend WithEvents chkConfirmExit As System.Windows.Forms.CheckBox
+    Friend WithEvents chkCheckUpdates As CheckBox
 End Class

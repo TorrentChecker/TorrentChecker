@@ -1,7 +1,5 @@
 ﻿Imports System.Text.RegularExpressions
-Imports System
 Imports System.Reflection
-Imports System.Windows.Forms
 Imports System.Net
 Imports System.Text
 Imports System.IO
@@ -177,11 +175,19 @@ Public Module mdlMain
         {"show_journal_tab", False},
         {"auto_cheking", False},
         {"write_fatal_errors", True},
+        {"check_for_updates", True},
         {"confirm_exit", True}
     }
 
+    Public AppRepository As New Dictionary(Of String, String) From
+    {
+        {"repository_url", "https://github.com/TorrentChecker/TorrentChecker/releases/latest"},
+        {"repository_api", "https://api.github.com/repos/TorrentChecker/TorrentChecker/releases/latest"}
+    }
+
     'constants
-    Public APP_NAME As String = "TorrentChecker v3.0.0 beta"
+    Public APP_VERSION As String = "3.0.0"
+    Public APP_NAME As String = "TorrentChecker v" & APP_VERSION
     Public HOME_PAGE_URL As String = TrackerBase(Trackers.rutracker) & "/forum/viewtopic.php?t=992695"
     Public REGEX_TIMEOUT As TimeSpan = TimeSpan.FromMilliseconds(1000)
     Public FONT_BOLD As Font = New Font("Verdana", 8.0!, FontStyle.Bold)
@@ -353,7 +359,7 @@ Public Module mdlMain
 
         Return ret
     End Function
-    Public Sub enableDoubleBuffer(ByVal obj As Object)
+    Public Sub EnableDoubleBuffer(ByVal obj As Object)
         Dim objType As Type = obj.[GetType]()
         Dim pi As PropertyInfo = objType.GetProperty("DoubleBuffered", BindingFlags.Instance Or BindingFlags.NonPublic)
         pi.SetValue(obj, True, Nothing)

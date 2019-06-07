@@ -22,13 +22,6 @@ Public Class clsHTTP
     Private proxy_credentials As New NetworkCredential
     Private ret As New HTTPResult
 
-    Public Sub Cancel_old()
-        'Cancel all requests
-        cts.Cancel()
-        cts.Dispose()
-        cts = New CancellationTokenSource()
-    End Sub
-
     Public Function Cancel() As CancellationToken
         'Cancel all requests
         cts.Cancel()
@@ -78,7 +71,7 @@ Public Class clsHTTP
             With http_request
                 .DefaultRequestHeaders.Clear()
                 .DefaultRequestHeaders.ConnectionClose = True
-                .DefaultRequestHeaders.Accept.Add(New Headers.MediaTypeWithQualityHeaderValue("text/html"))
+                '.DefaultRequestHeaders.Accept.Add(New Headers.MediaTypeWithQualityHeaderValue("text/html"))
                 .DefaultRequestHeaders.Add("User-Agent", APP_NAME)
                 Using Response As HttpResponseMessage = Await http_request.GetAsync(Url, HttpCompletionOption.ResponseHeadersRead, token)
                     If asBinary Then
