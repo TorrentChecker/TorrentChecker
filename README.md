@@ -20,4 +20,4 @@
 
 Какие системные требования у программы?
 ---
-Наличие установленного [Microsoft .NET Framework 4.5](https://www.microsoft.com/ru-ru/download/details.aspx?id=30653) (Windows Vista SP 2 и выше).
+Наличие установленного [Microsoft .NET Framework 4.6](https://www.microsoft.com/ru-ru/download/details.aspx?id=44927) (Windows Vista SP 2 и выше).
