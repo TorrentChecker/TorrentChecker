@@ -268,8 +268,8 @@ Public Class frmMain
                                 SearchParams.Clear()
 
                                 If tracker_id = Trackers.rutracker Then
-                                    SearchParams.Add("f[]", local_KeyWordsParams("forums_rutracker"))
-                                    SearchParams.Add("tst[]", "-1")
+                                    SearchParams.Add("f", local_KeyWordsParams("forums_rutracker"))
+                                    SearchParams.Add("tst", "-1")
                                     SearchParams.Add("o", "1")
                                     SearchParams.Add("s", "2")
                                     SearchParams.Add("tm", "-1")
