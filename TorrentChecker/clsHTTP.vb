@@ -73,7 +73,7 @@ Public Class clsHTTP
                 .DefaultRequestHeaders.ConnectionClose = True
                 '.DefaultRequestHeaders.Accept.Add(New Headers.MediaTypeWithQualityHeaderValue("text/html"))
                 .DefaultRequestHeaders.Add("User-Agent", APP_NAME)
-                Using Response As HttpResponseMessage = Await http_request.GetAsync(Url, HttpCompletionOption.ResponseHeadersRead, token)
+                Using Response As HttpResponseMessage = Await http_request.GetAsync(Url, token)
                     If asBinary Then
                         ret.ResultB = Await Response.Content.ReadAsByteArrayAsync
                     Else
