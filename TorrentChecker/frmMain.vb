@@ -1591,6 +1591,8 @@ Public Class frmMain
                     If tag_name.Length <> 0 AndAlso tag_name <> APP_VERSION Then
                         lblShowNewVerion.Visible = True
                         lblShowNewVerion.Text = String.Format("{0}: {1}. {2}: {3}", "Доступна новая версия", tag_name, "Текущая версия", APP_VERSION)
+                    Else
+                        lblShowNewVerion.Visible = False
                     End If
                 End If
             End If
