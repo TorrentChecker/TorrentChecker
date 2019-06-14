@@ -28,7 +28,7 @@ Public Class frmMain
             ctrl.Font = FONT_NORMAL
         Next
 
-        lblShowNewVerion.Font = FONT_UNDERLINE
+        lblShowNewVersion.Font = FONT_UNDERLINE
     End Sub
 
     Private Sub frmMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
@@ -1589,10 +1589,10 @@ Public Class frmMain
                 If HTTPUpdateResult.Result.Length <> 0 Then
                     Dim tag_name As String = Regex.Match(HTTPUpdateResult.Result, """tag_name"":""(.+?)""", RegexOptions.IgnoreCase, REGEX_TIMEOUT).Groups(1).Value
                     If tag_name.Length <> 0 AndAlso tag_name <> APP_VERSION Then
-                        lblShowNewVerion.Visible = True
-                        lblShowNewVerion.Text = String.Format("{0}: {1}. {2}: {3}", "Доступна новая версия", tag_name, "Текущая версия", APP_VERSION)
+                        lblShowNewVersion.Visible = True
+                        lblShowNewVersion.Text = String.Format("{0}: {1}. {2}: {3}", "Доступна новая версия", tag_name, "Текущая версия", APP_VERSION)
                     Else
-                        lblShowNewVerion.Visible = False
+                        lblShowNewVersion.Visible = False
                     End If
                 End If
             End If
@@ -1605,7 +1605,7 @@ Public Class frmMain
         CheckLatestUpdate()
     End Sub
 
-    Private Sub lblShowNewVerion_Click(sender As Object, e As EventArgs) Handles lblShowNewVerion.Click
+    Private Sub lblShowNewVersion_Click(sender As Object, e As EventArgs) Handles lblShowNewVersion.Click
         'open browser with the repository
 
         Try
