@@ -9,6 +9,7 @@ Public Class clsParse
         End Enum
         Public Property Result As DataTable
         Public Property Status As ParseStatuses
+        Public Property GotPM As Boolean
     End Class
     Class ParseForumResult
         Public Enum ParseStatuses
@@ -50,6 +51,10 @@ Public Class clsParse
 
             Select Case tracker_id
                 Case Trackers.rutracker
+                    'check for PM
+                    match = Regex.Match(str, "<a href=""privmsg.php\?folder=inbox"" class=""new-pm-link"">", RegexOptions.Singleline, REGEX_TIMEOUT)
+                    ret_result.GotPM = match.Success
+
                     'get results
                     match = Regex.Match(str, "<table class=""forumline tablesorter"" id=""tor-tbl"">.*?</table>", RegexOptions.Singleline, REGEX_TIMEOUT)
                     If match.Success Then
@@ -125,6 +130,10 @@ Public Class clsParse
                         End If
                     End If
                 Case Trackers.kinozal
+                    'check for PM
+                    match = Regex.Match(str, "<a href='/inbox.php'>ЛС: <span class=""green"">", RegexOptions.Singleline, REGEX_TIMEOUT)
+                    ret_result.GotPM = match.Success
+
                     'get results
                     match = Regex.Match(str, "<table class=""t_peer w100p"" cellspacing=0 cellpadding=0>.*?</table>", RegexOptions.Singleline, REGEX_TIMEOUT)
                     If match.Success Then
