@@ -29,6 +29,9 @@ Public Class frmMain
         Next
 
         lblShowNewVersion.Font = FONT_UNDERLINE
+        msiNewPM.Font = FONT_BOLD
+        msiPM_ru.Font = FONT_NORMAL
+        msiPM_kz.Font = FONT_NORMAL
     End Sub
 
     Private Sub frmMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
@@ -314,6 +317,9 @@ Public Class frmMain
                                         If operation_canceled Then
                                             Exit For
                                         End If
+
+                                        ShowPM(tracker_id, TrackerParseResult.GotPM)
+
                                         new_torrents_dt.Merge(TrackerParseResult.Result)
                                     ElseIf TrackerParseResult.Status = clsParse.ParseResult.ParseStatuses.forum_off Then
                                         TrackerParams(tracker_id)("is_tracker_failure") = True
@@ -1610,6 +1616,53 @@ Public Class frmMain
 
         Try
             System.Diagnostics.Process.Start(AppRepository("repository_url"))
+        Catch ex As Exception
+            MsgBox("Не могу открыть браузер" & vbCrLf & GetProperExceptionText(ex), MsgBoxStyle.Critical + MsgBoxStyle.OkOnly)
+        End Try
+    End Sub
+
+    Private Sub ShowPM(ByVal tracker_id As Trackers, ByVal show As Boolean)
+        'show/hide the 'new PM' indicator
+
+        Dim tracker_name As String = TrackerParams(tracker_id)("tracker_name")
+        Dim menu_text As String = "Новое персональное сообщение на " & tracker_name
+
+        Select Case tracker_id
+            Case Trackers.rutracker
+                msiPM_ru.Text = menu_text
+                msiPM_ru.Visible = show
+            Case Trackers.kinozal
+                msiPM_kz.Text = menu_text
+                msiPM_kz.Visible = show
+        End Select
+
+        NewPMMenuVisible(tracker_id) = show
+        msiNewPM.Visible = NewPMMenuVisible(Trackers.rutracker) OrElse NewPMMenuVisible(Trackers.kinozal)
+    End Sub
+
+    Private Sub MsiPM_ru_Click(sender As Object, e As EventArgs) Handles msiPM_ru.Click
+        'hide menu item after click
+        msiPM_ru.Visible = False
+        NewPMMenuVisible(Trackers.rutracker) = False
+        msiNewPM.Visible = NewPMMenuVisible(Trackers.rutracker) OrElse NewPMMenuVisible(Trackers.kinozal)
+
+        'open browser with the PM
+        Try
+            System.Diagnostics.Process.Start(TrackerParams(Trackers.rutracker)("pm_url"))
+        Catch ex As Exception
+            MsgBox("Не могу открыть браузер" & vbCrLf & GetProperExceptionText(ex), MsgBoxStyle.Critical + MsgBoxStyle.OkOnly)
+        End Try
+    End Sub
+
+    Private Sub MsiPM_kz_Click(sender As Object, e As EventArgs) Handles msiPM_kz.Click
+        'hide menu item after click
+        msiPM_kz.Visible = False
+        NewPMMenuVisible(Trackers.kinozal) = False
+        msiNewPM.Visible = NewPMMenuVisible(Trackers.rutracker) OrElse NewPMMenuVisible(Trackers.kinozal)
+
+        'open browser with the PM
+        Try
+            System.Diagnostics.Process.Start(TrackerParams(Trackers.kinozal)("pm_url"))
         Catch ex As Exception
             MsgBox("Не могу открыть браузер" & vbCrLf & GetProperExceptionText(ex), MsgBoxStyle.Critical + MsgBoxStyle.OkOnly)
         End Try

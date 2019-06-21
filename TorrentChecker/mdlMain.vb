@@ -92,6 +92,7 @@ Public Module mdlMain
             {"download_url", TrackerBase(Trackers.rutracker) & "/forum/dl.php?t="},
             {"registration_url", TrackerBase(Trackers.rutracker) & "/forum/profile.php?mode=register"},
             {"topic_url", TrackerBase(Trackers.rutracker) & "/forum/viewtopic.php?t="},
+            {"pm_url", TrackerBase(Trackers.rutracker) & "/forum/privmsg.php?folder=inbox"},
             {"tracker_name", Regex.Match(TrackerBase(Trackers.rutracker), "://(.*)").Groups(1).Value},
             {"is_logged", False},
             {"is_tracker_failure", False},
@@ -113,6 +114,7 @@ Public Module mdlMain
             {"download_url", Regex.Replace(TrackerBase(Trackers.kinozal), "(https?://)(.*)", "$1dl.$2") & "/download.php?id="},
             {"registration_url", TrackerBase(Trackers.kinozal) & "/signup.php"},
             {"topic_url", TrackerBase(Trackers.kinozal) & "/details.php?id="},
+            {"pm_url", TrackerBase(Trackers.kinozal) & "/inbox.php"},
             {"tracker_name", Regex.Match(TrackerBase(Trackers.kinozal), "://(.*)").Groups(1).Value},
             {"details_url", TrackerBase(Trackers.kinozal) & "/get_srv_details.php?action=2&id="},
             {"tz_offset", New TimeSpan},
@@ -185,8 +187,14 @@ Public Module mdlMain
         {"repository_api", "https://api.github.com/repos/TorrentChecker/TorrentChecker/releases/latest"}
     }
 
+    Public NewPMMenuVisible As New Dictionary(Of Trackers, Boolean) From
+        {
+            {Trackers.rutracker, False},
+            {Trackers.kinozal, False}
+        }
+
     'constants
-    Public APP_VERSION As String = "3.0.2"
+    Public APP_VERSION As String = "3.0.3"
     Public APP_NAME As String = "TorrentChecker v" & APP_VERSION
     Public HOME_PAGE_URL As String = TrackerBase(Trackers.rutracker) & "/forum/viewtopic.php?t=992695"
     Public REGEX_TIMEOUT As TimeSpan = TimeSpan.FromMilliseconds(1000)
