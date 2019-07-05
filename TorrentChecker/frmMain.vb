@@ -1,6 +1,6 @@
-﻿Imports System.Text.RegularExpressions
-Imports System.IO
+﻿Imports System.IO
 Imports System.Text
+Imports System.Text.RegularExpressions
 Imports System.Threading
 
 Public Class frmMain
@@ -53,7 +53,9 @@ Public Class frmMain
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
-            TrayIcon.Text = APP_NAME
+            trayIcon.Text = APP_NAME
+            trayIconPM.Text = APP_NAME & vbCrLf & "У вас есть новые персональные сообщения!"
+
             HideCaptchaTab()
             AddHandler bsrcFoundTorrents.CurrentChanged, AddressOf bsrcFoundTorrents_CurrentChanged
             KwListToParamsMapping(0) = 0
@@ -884,6 +886,7 @@ Public Class frmMain
                     stream.WriteLine(str)
                     stream.WriteLine("-----")
                     stream.WriteLine(base_str)
+                    stream.WriteLine("-----")
                     stream.WriteLine("=====LOG END=====")
                 End Using
             End If
@@ -1336,10 +1339,10 @@ Public Class frmMain
     End Sub
 
     Private Sub tmrTray_Tick(sender As Object, e As EventArgs) Handles tmrTray.Tick
-        If TrayIcon.Icon Is EMPTY_ICON Then
-            TrayIcon.Icon = TRAY_ICON
+        If trayIcon.Icon Is EMPTY_ICON Then
+            trayIcon.Icon = TRAY_ICON
         Else
-            TrayIcon.Icon = EMPTY_ICON
+            trayIcon.Icon = EMPTY_ICON
         End If
     End Sub
 
@@ -1357,16 +1360,16 @@ Public Class frmMain
 
         title = title.Trim.Substring(0, If(title.Length > 100, 100, title.Length))
         text = text.Trim.Substring(0, If(text.Length > 1000, 1000, text.Length))
-        TrayIcon.ShowBalloonTip(5000, title, text, ToolTipIcon.Info)
-        TrayIcon.Text = APP_NAME & vbCrLf & title
+        trayIcon.ShowBalloonTip(5000, title, text, ToolTipIcon.Info)
+        trayIcon.Text = APP_NAME & vbCrLf & title
         tmrTray.Enabled = True
     End Sub
 
     Private Sub DisableTrayBlinking()
         'stop flashing tray icon
         tmrTray.Enabled = False
-        TrayIcon.Icon = TRAY_ICON
-        TrayIcon.Text = APP_NAME
+        trayIcon.Icon = TRAY_ICON
+        trayIcon.Text = APP_NAME
     End Sub
 
     Private Sub ApplicationExit()
@@ -1433,9 +1436,9 @@ Public Class frmMain
         If APP_PAUSED Then
             tmrStartChecking.Enabled = False
             DisableTrayBlinking()
-            TrayIcon.Icon = TRAY_ICON_PAUSE
+            trayIcon.Icon = TRAY_ICON_PAUSE
         Else
-            TrayIcon.Icon = TRAY_ICON
+            trayIcon.Icon = TRAY_ICON
             If dgvKeyWords.Rows.Count > 1 Then
                 If start_checking Then
                     StartChecking()
@@ -1468,7 +1471,7 @@ Public Class frmMain
         AppHide(Not APP_HIDDEN)
     End Sub
 
-    Private Sub TrayIcon_MouseClick(sender As Object, e As MouseEventArgs) Handles TrayIcon.MouseClick
+    Private Sub TrayIcon_MouseClick(sender As Object, e As MouseEventArgs) Handles trayIcon.MouseClick
         If Not e.Button = Windows.Forms.MouseButtons.Left Then Exit Sub
 
         AppHide(Not APP_HIDDEN)
@@ -1637,14 +1640,14 @@ Public Class frmMain
         End Select
 
         NewPMMenuVisible(tracker_id) = show
-        msiNewPM.Visible = NewPMMenuVisible(Trackers.rutracker) OrElse NewPMMenuVisible(Trackers.kinozal)
+        ChangeVisibilityPM(NewPMMenuVisible(Trackers.rutracker) OrElse NewPMMenuVisible(Trackers.kinozal), menu_text)
     End Sub
 
     Private Sub MsiPM_ru_Click(sender As Object, e As EventArgs) Handles msiPM_ru.Click
         'hide menu item after click
         msiPM_ru.Visible = False
         NewPMMenuVisible(Trackers.rutracker) = False
-        msiNewPM.Visible = NewPMMenuVisible(Trackers.rutracker) OrElse NewPMMenuVisible(Trackers.kinozal)
+        ChangeVisibilityPM(NewPMMenuVisible(Trackers.rutracker) OrElse NewPMMenuVisible(Trackers.kinozal))
 
         'open browser with the PM
         Try
@@ -1658,7 +1661,7 @@ Public Class frmMain
         'hide menu item after click
         msiPM_kz.Visible = False
         NewPMMenuVisible(Trackers.kinozal) = False
-        msiNewPM.Visible = NewPMMenuVisible(Trackers.rutracker) OrElse NewPMMenuVisible(Trackers.kinozal)
+        ChangeVisibilityPM(NewPMMenuVisible(Trackers.rutracker) OrElse NewPMMenuVisible(Trackers.kinozal))
 
         'open browser with the PM
         Try
@@ -1666,5 +1669,26 @@ Public Class frmMain
         Catch ex As Exception
             MsgBox("Не могу открыть браузер" & vbCrLf & GetProperExceptionText(ex), MsgBoxStyle.Critical + MsgBoxStyle.OkOnly)
         End Try
+    End Sub
+
+    Private Sub ChangeVisibilityPM(ByVal show As Boolean, Optional ByVal text As String = "")
+        'snow/hide PM menu
+        msiNewPM.Visible = show
+
+        'snow/hide tray PM icon
+        If show Then
+            If trayIconPM.Icon Is Nothing Then
+                trayIconPM.Icon = TRAY_ICON_PM
+                trayIconPM.ShowBalloonTip(5000, APP_NAME, text, ToolTipIcon.Info)
+            End If
+        Else
+            trayIconPM.Icon = Nothing
+        End If
+    End Sub
+
+    Private Sub TrayIconPM_MouseClick(sender As Object, e As MouseEventArgs) Handles trayIconPM.MouseClick
+        If Not e.Button = Windows.Forms.MouseButtons.Left Then Exit Sub
+
+        AppHide(Not APP_HIDDEN)
     End Sub
 End Class
