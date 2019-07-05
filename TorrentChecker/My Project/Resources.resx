@@ -136,4 +136,7 @@
   <data name="main_ico_pause" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\main_ico_pause.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pm_ico" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pm_ico.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

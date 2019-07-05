@@ -117,7 +117,6 @@ Public Module mdlMain
             {"pm_url", TrackerBase(Trackers.kinozal) & "/inbox.php"},
             {"tracker_name", Regex.Match(TrackerBase(Trackers.kinozal), "://(.*)").Groups(1).Value},
             {"details_url", TrackerBase(Trackers.kinozal) & "/get_srv_details.php?action=2&id="},
-            {"tz_offset", New TimeSpan},
             {"server_datetime", New DateTime},
             {"is_logged", False},
             {"is_tracker_failure", False},
@@ -211,6 +210,7 @@ Public Module mdlMain
     Public EMPTY_ICON As Icon = My.Resources.ico_empty
     Public TRAY_ICON As Icon = My.Resources.main_ico
     Public TRAY_ICON_PAUSE As Icon = My.Resources.main_ico_pause
+    Public TRAY_ICON_PM As Icon = My.Resources.pm_ico
     Public IMAGE_ALL_KW As Bitmap = My.Resources.img_all_kw
     Public IMAGE_CLOCK As Bitmap = My.Resources.img_clock
     Public IMAGE_PAUSE As Bitmap = My.Resources.img_pause

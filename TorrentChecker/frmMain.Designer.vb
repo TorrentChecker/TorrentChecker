@@ -25,8 +25,8 @@ Partial Class frmMain
         Me.components = New System.ComponentModel.Container()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.btnConnect = New System.Windows.Forms.Button()
         Me.dgvTorrents = New System.Windows.Forms.DataGridView()
@@ -85,7 +85,10 @@ Partial Class frmMain
         Me.msiHomePage = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem12 = New System.Windows.Forms.ToolStripSeparator()
         Me.msiAbout = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TrayIcon = New System.Windows.Forms.NotifyIcon(Me.components)
+        Me.msiNewPM = New System.Windows.Forms.ToolStripMenuItem()
+        Me.msiPM_ru = New System.Windows.Forms.ToolStripMenuItem()
+        Me.msiPM_kz = New System.Windows.Forms.ToolStripMenuItem()
+        Me.trayIcon = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.cmsTray = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmsiHide = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem9 = New System.Windows.Forms.ToolStripSeparator()
@@ -99,9 +102,7 @@ Partial Class frmMain
         Me.cmsTorrentColumns = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.tmrCheckUpdate = New System.Windows.Forms.Timer(Me.components)
         Me.lblShowNewVersion = New System.Windows.Forms.Label()
-        Me.msiNewPM = New System.Windows.Forms.ToolStripMenuItem()
-        Me.msiPM_ru = New System.Windows.Forms.ToolStripMenuItem()
-        Me.msiPM_kz = New System.Windows.Forms.ToolStripMenuItem()
+        Me.trayIconPM = New System.Windows.Forms.NotifyIcon(Me.components)
         CType(Me.dgvTorrents, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.cmsTorrents.SuspendLayout()
         CType(Me.scMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -272,26 +273,26 @@ Partial Class frmMain
         Me.dgvKeyWords.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvKeyWords.ColumnHeadersVisible = False
         Me.dgvKeyWords.ContextMenuStrip = Me.cmsKeyWord
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvKeyWords.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvKeyWords.DefaultCellStyle = DataGridViewCellStyle3
         Me.dgvKeyWords.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvKeyWords.Location = New System.Drawing.Point(3, 16)
         Me.dgvKeyWords.Name = "dgvKeyWords"
         Me.dgvKeyWords.ReadOnly = True
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvKeyWords.RowHeadersDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvKeyWords.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvKeyWords.RowHeadersVisible = False
         Me.dgvKeyWords.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvKeyWords.Size = New System.Drawing.Size(161, 398)
@@ -594,12 +595,35 @@ Partial Class frmMain
         Me.msiAbout.Size = New System.Drawing.Size(273, 22)
         Me.msiAbout.Text = "О программе"
         '
-        'TrayIcon
+        'msiNewPM
         '
-        Me.TrayIcon.ContextMenuStrip = Me.cmsTray
-        Me.TrayIcon.Icon = CType(resources.GetObject("TrayIcon.Icon"), System.Drawing.Icon)
-        Me.TrayIcon.Text = "NotifyIcon1"
-        Me.TrayIcon.Visible = True
+        Me.msiNewPM.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.msiNewPM.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.msiPM_ru, Me.msiPM_kz})
+        Me.msiNewPM.Name = "msiNewPM"
+        Me.msiNewPM.Size = New System.Drawing.Size(137, 20)
+        Me.msiNewPM.Text = "У вас есть новые ПМ!"
+        Me.msiNewPM.Visible = False
+        '
+        'msiPM_ru
+        '
+        Me.msiPM_ru.Name = "msiPM_ru"
+        Me.msiPM_ru.Size = New System.Drawing.Size(124, 22)
+        Me.msiPM_ru.Text = "Рутрекер"
+        Me.msiPM_ru.Visible = False
+        '
+        'msiPM_kz
+        '
+        Me.msiPM_kz.Name = "msiPM_kz"
+        Me.msiPM_kz.Size = New System.Drawing.Size(124, 22)
+        Me.msiPM_kz.Text = "Кинозал"
+        Me.msiPM_kz.Visible = False
+        '
+        'trayIcon
+        '
+        Me.trayIcon.ContextMenuStrip = Me.cmsTray
+        Me.trayIcon.Icon = CType(resources.GetObject("trayIcon.Icon"), System.Drawing.Icon)
+        Me.trayIcon.Text = "NotifyIcon1"
+        Me.trayIcon.Visible = True
         '
         'cmsTray
         '
@@ -680,28 +704,10 @@ Partial Class frmMain
         Me.lblShowNewVersion.Text = "Обновлений нет"
         Me.lblShowNewVersion.Visible = False
         '
-        'msiNewPM
+        'trayIconPM
         '
-        Me.msiNewPM.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.msiNewPM.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.msiPM_ru, Me.msiPM_kz})
-        Me.msiNewPM.Name = "msiNewPM"
-        Me.msiNewPM.Size = New System.Drawing.Size(137, 20)
-        Me.msiNewPM.Text = "У вас есть новые ПМ!"
-        Me.msiNewPM.Visible = False
-        '
-        'msiPM_ru
-        '
-        Me.msiPM_ru.Name = "msiPM_ru"
-        Me.msiPM_ru.Size = New System.Drawing.Size(180, 22)
-        Me.msiPM_ru.Text = "Рутрекер"
-        Me.msiPM_ru.Visible = False
-        '
-        'msiPM_kz
-        '
-        Me.msiPM_kz.Name = "msiPM_kz"
-        Me.msiPM_kz.Size = New System.Drawing.Size(180, 22)
-        Me.msiPM_kz.Text = "Кинозал"
-        Me.msiPM_kz.Visible = False
+        Me.trayIconPM.Text = "NotifyIcon1"
+        Me.trayIconPM.Visible = True
         '
         'frmMain
         '
@@ -778,7 +784,7 @@ Partial Class frmMain
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents picCaptcha As System.Windows.Forms.PictureBox
     Friend WithEvents txtCaptcha As System.Windows.Forms.TextBox
-    Friend WithEvents TrayIcon As System.Windows.Forms.NotifyIcon
+    Friend WithEvents trayIcon As System.Windows.Forms.NotifyIcon
     Friend WithEvents tmrTray As System.Windows.Forms.Timer
     Friend WithEvents ToolStripMenuItem2 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents cmsiMarkAllAsRead_t As System.Windows.Forms.ToolStripMenuItem
@@ -819,4 +825,5 @@ Partial Class frmMain
     Friend WithEvents msiNewPM As ToolStripMenuItem
     Friend WithEvents msiPM_ru As ToolStripMenuItem
     Friend WithEvents msiPM_kz As ToolStripMenuItem
+    Friend WithEvents trayIconPM As NotifyIcon
 End Class
