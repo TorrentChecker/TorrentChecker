@@ -193,7 +193,7 @@ Public Module mdlMain
         }
 
     'constants
-    Public APP_VERSION As String = "3.0.3"
+    Public APP_VERSION As String = "3.0.4"
     Public APP_NAME As String = "TorrentChecker v" & APP_VERSION
     Public HOME_PAGE_URL As String = TrackerBase(Trackers.rutracker) & "/forum/viewtopic.php?t=992695"
     Public REGEX_TIMEOUT As TimeSpan = TimeSpan.FromMilliseconds(1000)
