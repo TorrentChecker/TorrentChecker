@@ -600,21 +600,21 @@ Partial Class frmMain
         Me.msiNewPM.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.msiNewPM.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.msiPM_ru, Me.msiPM_kz})
         Me.msiNewPM.Name = "msiNewPM"
-        Me.msiNewPM.Size = New System.Drawing.Size(137, 20)
-        Me.msiNewPM.Text = "У вас есть новые ПМ!"
+        Me.msiNewPM.Size = New System.Drawing.Size(133, 20)
+        Me.msiNewPM.Text = "У вас есть новые ЛС!"
         Me.msiNewPM.Visible = False
         '
         'msiPM_ru
         '
         Me.msiPM_ru.Name = "msiPM_ru"
-        Me.msiPM_ru.Size = New System.Drawing.Size(124, 22)
+        Me.msiPM_ru.Size = New System.Drawing.Size(180, 22)
         Me.msiPM_ru.Text = "Рутрекер"
         Me.msiPM_ru.Visible = False
         '
         'msiPM_kz
         '
         Me.msiPM_kz.Name = "msiPM_kz"
-        Me.msiPM_kz.Size = New System.Drawing.Size(124, 22)
+        Me.msiPM_kz.Size = New System.Drawing.Size(180, 22)
         Me.msiPM_kz.Text = "Кинозал"
         Me.msiPM_kz.Visible = False
         '

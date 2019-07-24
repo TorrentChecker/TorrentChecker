@@ -52,7 +52,7 @@ Public Class clsParse
             Select Case tracker_id
                 Case Trackers.rutracker
                     'check for PM
-                    match = Regex.Match(str, "<a href=""privmsg.php\?folder=inbox"" class=""new-pm-link"">", RegexOptions.Singleline, REGEX_TIMEOUT)
+                    match = Regex.Match(str, "<a href=""privmsg.php\?folder=inbox""\s+class=""new-pm-link"">", RegexOptions.Singleline, REGEX_TIMEOUT)
                     ret_result.GotPM = match.Success
 
                     'get results
