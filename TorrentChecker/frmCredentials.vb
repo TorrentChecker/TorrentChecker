@@ -27,10 +27,10 @@
         txtProxyAddress.Text = ProxySettings("proxy_address")
         txtProxyPort.Text = ProxySettings("proxy_port")
 
-        txtLogin_rt.Text = Uri.UnescapeDataString(TrackerParams(Trackers.rutracker)("credentials")("login_username"))
-        txtPassword_rt.Text = Uri.UnescapeDataString(TrackerParams(Trackers.rutracker)("credentials")("login_password"))
-        txtLogin_kz.Text = Uri.UnescapeDataString(TrackerParams(Trackers.kinozal)("credentials")("username"))
-        txtPassword_kz.Text = Uri.UnescapeDataString(TrackerParams(Trackers.kinozal)("credentials")("password"))
+        txtLogin_rt.Text = TrackerParams(Trackers.rutracker)("credentials")("login_username")
+        txtPassword_rt.Text = TrackerParams(Trackers.rutracker)("credentials")("login_password")
+        txtLogin_kz.Text = TrackerParams(Trackers.kinozal)("credentials")("username")
+        txtPassword_kz.Text = TrackerParams(Trackers.kinozal)("credentials")("password")
 
         Me.Show()
         tbCredentialsControl.SelectedIndex = CredentialsControl_SELINDEX
@@ -156,22 +156,22 @@
         ProxySettings("proxy_address") = txtProxyAddress.Text
         ProxySettings("proxy_port") = txtProxyPort.Text
 
-        If TrackerParams(Trackers.rutracker)("credentials")("login_username") <> Uri.EscapeUriString(txtLogin_rt.Text) _
-            Or TrackerParams(Trackers.rutracker)("credentials")("login_password") <> Uri.EscapeUriString(txtPassword_rt.Text) Then
+        If TrackerParams(Trackers.rutracker)("credentials")("login_username") <> txtLogin_rt.Text _
+            Or TrackerParams(Trackers.rutracker)("credentials")("login_password") <> txtPassword_rt.Text Then
             TrackerParams(Trackers.rutracker)("is_logged") = False
             HTTP.ClearCookies(New Uri(TrackerParams(Trackers.rutracker)("login_url")))
         End If
 
-        If TrackerParams(Trackers.kinozal)("credentials")("username") <> Uri.EscapeUriString(txtLogin_kz.Text) _
-            Or TrackerParams(Trackers.kinozal)("credentials")("password") <> Uri.EscapeUriString(txtPassword_kz.Text) Then
+        If TrackerParams(Trackers.kinozal)("credentials")("username") <> txtLogin_kz.Text _
+            Or TrackerParams(Trackers.kinozal)("credentials")("password") <> txtPassword_kz.Text Then
             TrackerParams(Trackers.kinozal)("is_logged") = False
             HTTP.ClearCookies(New Uri(TrackerParams(Trackers.kinozal)("login_url")))
         End If
 
-        TrackerParams(Trackers.rutracker)("credentials")("login_username") = Uri.EscapeUriString(txtLogin_rt.Text)
-        TrackerParams(Trackers.rutracker)("credentials")("login_password") = Uri.EscapeUriString(txtPassword_rt.Text)
-        TrackerParams(Trackers.kinozal)("credentials")("username") = Uri.EscapeUriString(txtLogin_kz.Text)
-        TrackerParams(Trackers.kinozal)("credentials")("password") = Uri.EscapeUriString(txtPassword_kz.Text)
+        TrackerParams(Trackers.rutracker)("credentials")("login_username") = txtLogin_rt.Text
+        TrackerParams(Trackers.rutracker)("credentials")("login_password") = txtPassword_rt.Text
+        TrackerParams(Trackers.kinozal)("credentials")("username") = txtLogin_kz.Text
+        TrackerParams(Trackers.kinozal)("credentials")("password") = txtPassword_kz.Text
 
         SaveSettings()
 
