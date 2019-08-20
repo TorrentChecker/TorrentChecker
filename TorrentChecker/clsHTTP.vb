@@ -66,7 +66,7 @@ Public Class clsHTTP
         Try
             If GetData IsNot Nothing Then
                 Url &= "?"
-                Url &= String.Join("&", GetData.Select(Function(kvp) String.Format("{0}={1}", kvp.Key, kvp.Value)))
+                Url &= String.Join("&", GetData.Select(Function(kvp) String.Format("{0}={1}", kvp.Key, Uri.EscapeDataString(kvp.Value))))
             End If
             With http_request
                 .DefaultRequestHeaders.Clear()
