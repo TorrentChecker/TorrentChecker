@@ -139,6 +139,7 @@ Partial Class frmMain
         Me.dgvTorrents.AllowUserToDeleteRows = False
         Me.dgvTorrents.AllowUserToOrderColumns = True
         Me.dgvTorrents.AllowUserToResizeRows = False
+        Me.dgvTorrents.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvTorrents.BackgroundColor = System.Drawing.SystemColors.Window
         Me.dgvTorrents.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -260,6 +261,7 @@ Partial Class frmMain
         Me.dgvKeyWords.AllowUserToResizeColumns = False
         Me.dgvKeyWords.AllowUserToResizeRows = False
         Me.dgvKeyWords.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dgvKeyWords.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvKeyWords.BackgroundColor = System.Drawing.SystemColors.Window
         Me.dgvKeyWords.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -607,14 +609,14 @@ Partial Class frmMain
         'msiPM_ru
         '
         Me.msiPM_ru.Name = "msiPM_ru"
-        Me.msiPM_ru.Size = New System.Drawing.Size(180, 22)
+        Me.msiPM_ru.Size = New System.Drawing.Size(124, 22)
         Me.msiPM_ru.Text = "Рутрекер"
         Me.msiPM_ru.Visible = False
         '
         'msiPM_kz
         '
         Me.msiPM_kz.Name = "msiPM_kz"
-        Me.msiPM_kz.Size = New System.Drawing.Size(180, 22)
+        Me.msiPM_kz.Size = New System.Drawing.Size(124, 22)
         Me.msiPM_kz.Text = "Кинозал"
         Me.msiPM_kz.Visible = False
         '

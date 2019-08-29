@@ -78,6 +78,14 @@ Public Module mdlMain
 
     Public dtFoundTorrents As New DataTable 'torrents found during the current session
     Public dtStoredTorrents As New DataTable 'all found torrents
+    'fonts
+    Public FONT_BOLD As Font = New Font("Verdana", 8.0!, FontStyle.Bold)
+    Public FONT_NORMAL As Font = New Font("Verdana", 8.0!, FontStyle.Regular)
+    Public FONT_ITALIC As Font = New Font("Verdana", 8.0!, FontStyle.Italic)
+    Public FONT_UNDERLINE As Font = New Font("Verdana", 8.0!, FontStyle.Underline)
+    Public UNIX_TIME_ORIGIN As DateTime = New DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+    Public DGV_BOLD As New DataGridViewCellStyle With {.Font = FONT_BOLD}
+    Public DGV_NORMAL As New DataGridViewCellStyle With {.Font = FONT_NORMAL}
 
     Public TrackerBase As New Dictionary(Of Trackers, String) From
         {
@@ -177,7 +185,9 @@ Public Module mdlMain
         {"auto_cheking", False},
         {"write_fatal_errors", True},
         {"check_for_updates", True},
-        {"confirm_exit", True}
+        {"confirm_exit", True},
+        {"dgv_font_bold", DGV_BOLD.Font},
+        {"dgv_font_normal", DGV_NORMAL.Font}
     }
 
     Public AppRepository As New Dictionary(Of String, String) From
@@ -197,13 +207,6 @@ Public Module mdlMain
     Public APP_NAME As String = "TorrentChecker v" & APP_VERSION
     Public HOME_PAGE_URL As String = TrackerBase(Trackers.rutracker) & "/forum/viewtopic.php?t=992695"
     Public REGEX_TIMEOUT As TimeSpan = TimeSpan.FromMilliseconds(1000)
-    Public FONT_BOLD As Font = New Font("Verdana", 8.0!, FontStyle.Bold)
-    Public FONT_NORMAL As Font = New Font("Verdana", 8.0!, FontStyle.Regular)
-    Public FONT_ITALIC As Font = New Font("Verdana", 8.0!, FontStyle.Italic)
-    Public FONT_UNDERLINE As Font = New Font("Verdana", 8.0!, FontStyle.Underline)
-    Public UNIX_TIME_ORIGIN As DateTime = New DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-    Public DGV_BOLD As New DataGridViewCellStyle With {.Font = FONT_BOLD}
-    Public DGV_NORMAL As New DataGridViewCellStyle With {.Font = FONT_NORMAL}
     Public ITEM_PADDING As New System.Windows.Forms.Padding(5, 0, 0, 0)
     Public DATETIME_FORMAT As String = "dd.MM.yyyy HH:mm:ss"
     Public CredentialsControl_SELINDEX As Integer = 0

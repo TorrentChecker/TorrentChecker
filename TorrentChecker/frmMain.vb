@@ -69,6 +69,17 @@ Public Class frmMain
 
             ReadSettings()
 
+            'fonts
+            If AppOptions.ContainsKey("dgv_font_bold") AndAlso AppOptions.ContainsKey("dgv_font_normal") Then
+                DGV_BOLD = New DataGridViewCellStyle With {.Font = New Font(DirectCast(AppOptions("dgv_font_bold"), Font), FontStyle.Bold)}
+                DGV_NORMAL = New DataGridViewCellStyle With {.Font = New Font(DirectCast(AppOptions("dgv_font_normal"), Font), FontStyle.Regular)}
+            End If
+
+            'apply fonts
+            dgvTorrents.DefaultCellStyle = DGV_NORMAL
+            dgvKeyWords.DefaultCellStyle = DGV_NORMAL
+            dgvKeyWords.Rows(0).DefaultCellStyle = DGV_BOLD
+
             'manual sorting
             dgvTorrents.Columns(Columns.found_datetime.ToString).SortMode = DataGridViewColumnSortMode.Programmatic
             dgvTorrents.Columns(Columns.torrent_size_dimension.ToString).SortMode = DataGridViewColumnSortMode.Programmatic
@@ -139,7 +150,7 @@ Public Class frmMain
         dgvKeyWords.Columns.Add(kw_col)
 
         dgvKeyWords.Rows.Add(IMAGE_ALL_KW, KeyWordsParams(0)("label"))
-        dgvKeyWords.Rows(0).Cells("kw_item").Style.Font = FONT_BOLD
+        'dgvKeyWords.Rows(0).Cells("kw_item").Style.Font = FONT_BOLD
         dgvKeyWords.Rows(0).Cells("kw_item").Style.ForeColor = Color.Gray
     End Sub
 
