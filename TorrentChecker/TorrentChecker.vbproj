@@ -108,6 +108,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationEvents.vb" />
     <Compile Include="clsHTTP.vb" />
     <Compile Include="clsListViewExt.vb">
       <SubType>Component</SubType>
