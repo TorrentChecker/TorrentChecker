@@ -39,6 +39,7 @@ Partial Class frmAppOptions
         Me.grpRunBox = New System.Windows.Forms.GroupBox()
         Me.chkAutoChecking = New System.Windows.Forms.CheckBox()
         Me.gprOtherBox = New System.Windows.Forms.GroupBox()
+        Me.chkCheckUpdates = New System.Windows.Forms.CheckBox()
         Me.chkConfirmExit = New System.Windows.Forms.CheckBox()
         Me.lblClearCache = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -47,7 +48,8 @@ Partial Class frmAppOptions
         Me.chkWriteFatalErrors = New System.Windows.Forms.CheckBox()
         Me.chkShowJournalTab = New System.Windows.Forms.CheckBox()
         Me.tlpToolTip = New System.Windows.Forms.ToolTip(Me.components)
-        Me.chkCheckUpdates = New System.Windows.Forms.CheckBox()
+        Me.lblChangeMainFont = New System.Windows.Forms.Label()
+        Me.fntdMain = New System.Windows.Forms.FontDialog()
         Me.grpTrayBox.SuspendLayout()
         Me.grpRunBox.SuspendLayout()
         Me.gprOtherBox.SuspendLayout()
@@ -123,7 +125,7 @@ Partial Class frmAppOptions
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(245, 412)
+        Me.btnSave.Location = New System.Drawing.Point(245, 441)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(98, 26)
         Me.btnSave.TabIndex = 13
@@ -132,7 +134,7 @@ Partial Class frmAppOptions
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(349, 412)
+        Me.btnCancel.Location = New System.Drawing.Point(349, 441)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(98, 26)
         Me.btnCancel.TabIndex = 14
@@ -202,6 +204,7 @@ Partial Class frmAppOptions
         '
         'gprOtherBox
         '
+        Me.gprOtherBox.Controls.Add(Me.lblChangeMainFont)
         Me.gprOtherBox.Controls.Add(Me.chkCheckUpdates)
         Me.gprOtherBox.Controls.Add(Me.chkConfirmExit)
         Me.gprOtherBox.Controls.Add(Me.lblClearCache)
@@ -218,10 +221,20 @@ Partial Class frmAppOptions
         Me.gprOtherBox.Controls.Add(Me.txtTorrentsStoreTime)
         Me.gprOtherBox.Location = New System.Drawing.Point(12, 211)
         Me.gprOtherBox.Name = "gprOtherBox"
-        Me.gprOtherBox.Size = New System.Drawing.Size(435, 195)
+        Me.gprOtherBox.Size = New System.Drawing.Size(435, 220)
         Me.gprOtherBox.TabIndex = 15
         Me.gprOtherBox.TabStop = False
         Me.gprOtherBox.Text = "Разное"
+        '
+        'chkCheckUpdates
+        '
+        Me.chkCheckUpdates.AutoSize = True
+        Me.chkCheckUpdates.Location = New System.Drawing.Point(9, 71)
+        Me.chkCheckUpdates.Name = "chkCheckUpdates"
+        Me.chkCheckUpdates.Size = New System.Drawing.Size(144, 17)
+        Me.chkCheckUpdates.TabIndex = 8
+        Me.chkCheckUpdates.Text = "Проверять обновления"
+        Me.chkCheckUpdates.UseVisualStyleBackColor = True
         '
         'chkConfirmExit
         '
@@ -292,21 +305,22 @@ Partial Class frmAppOptions
         Me.chkShowJournalTab.Text = "Показывать журнал ошибок"
         Me.chkShowJournalTab.UseVisualStyleBackColor = True
         '
-        'chkCheckUpdates
+        'lblChangeMainFont
         '
-        Me.chkCheckUpdates.AutoSize = True
-        Me.chkCheckUpdates.Location = New System.Drawing.Point(9, 71)
-        Me.chkCheckUpdates.Name = "chkCheckUpdates"
-        Me.chkCheckUpdates.Size = New System.Drawing.Size(144, 17)
-        Me.chkCheckUpdates.TabIndex = 8
-        Me.chkCheckUpdates.Text = "Проверять обновления"
-        Me.chkCheckUpdates.UseVisualStyleBackColor = True
+        Me.lblChangeMainFont.AutoSize = True
+        Me.lblChangeMainFont.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.lblChangeMainFont.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.lblChangeMainFont.Location = New System.Drawing.Point(6, 189)
+        Me.lblChangeMainFont.Name = "lblChangeMainFont"
+        Me.lblChangeMainFont.Size = New System.Drawing.Size(170, 13)
+        Me.lblChangeMainFont.TabIndex = 19
+        Me.lblChangeMainFont.Text = "Изменить шрифт главного окна"
         '
         'frmAppOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(458, 444)
+        Me.ClientSize = New System.Drawing.Size(458, 475)
         Me.Controls.Add(Me.gprOtherBox)
         Me.Controls.Add(Me.grpRunBox)
         Me.Controls.Add(Me.grpTrayBox)
@@ -353,4 +367,6 @@ Partial Class frmAppOptions
     Friend WithEvents lblClearCache As System.Windows.Forms.Label
     Friend WithEvents chkConfirmExit As System.Windows.Forms.CheckBox
     Friend WithEvents chkCheckUpdates As CheckBox
+    Friend WithEvents lblChangeMainFont As Label
+    Friend WithEvents fntdMain As FontDialog
 End Class

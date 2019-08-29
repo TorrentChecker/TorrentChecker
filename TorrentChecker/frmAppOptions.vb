@@ -1,5 +1,7 @@
 ﻿Public Class frmAppOptions
 
+    Private font_changed As Boolean
+
     Private Sub frmAppOptions_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If e.KeyCode = Keys.Escape Then Me.Hide()
     End Sub
@@ -19,6 +21,7 @@
         txtCheckInterval.Text = CStr(CHECK_INTERVAL / 60000)
         txtTorrentsStoreTime.Text = CStr(TORRENTS_MAX_STORETIME / (24 * 60 * 60))
         txtMaxVisibleResults.Text = CStr(TORRENTS_MAX_RESULTS)
+        font_changed = False
 
         Try
             If My.Computer.Registry.CurrentUser.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run", False).GetValue(Application.ProductName) IsNot Nothing Then
@@ -43,11 +46,13 @@
         Next
 
         lblClearCache.Font = FONT_UNDERLINE
+        lblChangeMainFont.Font = FONT_UNDERLINE
 
-        tlpToolTip.SetToolTip(txtTorrentsStoreTime, "Информация о каждом найденном торренте должна быть сохранена в общем кэше, чтобы программа его ""помнила"" и не выводила в следующий раз." & vbCrLf & _
+        tlpToolTip.SetToolTip(txtTorrentsStoreTime, "Информация о каждом найденном торренте должна быть сохранена в общем кэше, чтобы программа его ""помнила"" и не выводила в следующий раз." & vbCrLf &
                               "Данный параметр позволяет настроить максимальный срок, после которого информация будет удалена из кэша, когда данный торрент выйдет из области видимости программы")
         tlpToolTip.SetToolTip(txtMaxVisibleResults, "Автоочистка окна найденных торрентов для каждого задания. Применяется каждый раз, когда найден хотя бы один торрент в рамках каждого ключевого слова")
         tlpToolTip.SetToolTip(txtCheckInterval, "Позволяет задать частоту проверок ключевых слов. Изменение вступает в силу при следующей проверке")
+        tlpToolTip.SetToolTip(lblChangeMainFont, "Можно задать шрифт и его размер для найденных торрентов и ключевых фраз. Внимание! Начертание (курсив, полужирность и т.д.) изменить невозможно!")
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
@@ -57,6 +62,9 @@
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         If Not MakeChecks() Then Exit Sub
 
+        If font_changed Then
+            ChangeMainFont()
+        End If
         AppOptions("hide_to_tray") = chkHideToTray.Checked
         AppOptions("close_to_tray") = chkCloseToTray.Checked
         AppOptions("run_hidden") = chkRunHidden.Checked
@@ -65,6 +73,8 @@
         AppOptions("write_fatal_errors") = chkWriteFatalErrors.Checked
         AppOptions("check_for_updates") = chkCheckUpdates.Checked
         AppOptions("confirm_exit") = chkConfirmExit.Checked
+        AppOptions("dgv_font_bold") = DGV_BOLD.Font
+        AppOptions("dgv_font_normal") = DGV_NORMAL.Font
         CHECK_INTERVAL = CInt(txtCheckInterval.Text) * 60000
         TORRENTS_MAX_STORETIME = CLng(txtTorrentsStoreTime.Text) * 24 * 60 * 60
         TORRENTS_MAX_RESULTS = CShort(txtMaxVisibleResults.Text)
@@ -175,5 +185,37 @@
         End If
         dtStoredTorrents.Clear()
         MsgBox("Кэш очищен!", MsgBoxStyle.Information + MsgBoxStyle.OkOnly)
+    End Sub
+
+    Private Sub LblChangeMainFont_Click(sender As Object, e As EventArgs) Handles lblChangeMainFont.Click
+        fntdMain.ShowEffects = False
+        fntdMain.Font = DGV_NORMAL.Font
+        If fntdMain.ShowDialog = DialogResult.OK Then
+            font_changed = True
+        End If
+    End Sub
+
+    Private Sub ChangeMainFont()
+        Try
+            Dim _DGV_BOLD As DataGridViewCellStyle = DGV_BOLD
+            DGV_BOLD = New DataGridViewCellStyle With {.Font = New Font(fntdMain.Font.Name, fntdMain.Font.Size, FontStyle.Bold)}
+            DGV_NORMAL = New DataGridViewCellStyle With {.Font = New Font(fntdMain.Font.Name, fntdMain.Font.Size, FontStyle.Regular)}
+
+            frmMain.dgvTorrents.DefaultCellStyle = DGV_NORMAL
+            For Each dgvr As DataGridViewRow In frmMain.dgvTorrents.Rows
+                If dgvr.DefaultCellStyle Is _DGV_BOLD Then
+                    dgvr.DefaultCellStyle = DGV_BOLD
+                End If
+            Next
+
+            frmMain.dgvKeyWords.DefaultCellStyle = DGV_NORMAL
+            For Each dgvr As DataGridViewRow In frmMain.dgvKeyWords.Rows
+                If dgvr.DefaultCellStyle Is _DGV_BOLD Then
+                    dgvr.DefaultCellStyle = DGV_BOLD
+                End If
+            Next
+        Catch ex As Exception
+            MsgBox("Не могу изменить шрифт!" & vbCrLf & GetProperExceptionText(ex), MsgBoxStyle.Critical + MsgBoxStyle.OkOnly)
+        End Try
     End Sub
 End Class
