@@ -186,6 +186,7 @@ Public Module mdlMain
         {"write_fatal_errors", True},
         {"check_for_updates", True},
         {"confirm_exit", True},
+        {"play_sound", False},
         {"dgv_font_bold", DGV_BOLD.Font},
         {"dgv_font_normal", DGV_NORMAL.Font}
     }

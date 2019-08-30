@@ -18,6 +18,7 @@
         chkWriteFatalErrors.Checked = AppOptions("write_fatal_errors")
         chkCheckUpdates.Checked = AppOptions("check_for_updates")
         chkConfirmExit.Checked = AppOptions("confirm_exit")
+        chkPlaySound.Checked = AppOptions("play_sound")
         txtCheckInterval.Text = CStr(CHECK_INTERVAL / 60000)
         txtTorrentsStoreTime.Text = CStr(TORRENTS_MAX_STORETIME / (24 * 60 * 60))
         txtMaxVisibleResults.Text = CStr(TORRENTS_MAX_RESULTS)
@@ -53,6 +54,7 @@
         tlpToolTip.SetToolTip(txtMaxVisibleResults, "Автоочистка окна найденных торрентов для каждого задания. Применяется каждый раз, когда найден хотя бы один торрент в рамках каждого ключевого слова")
         tlpToolTip.SetToolTip(txtCheckInterval, "Позволяет задать частоту проверок ключевых слов. Изменение вступает в силу при следующей проверке")
         tlpToolTip.SetToolTip(lblChangeMainFont, "Можно задать шрифт и его размер для найденных торрентов и ключевых фраз. Внимание! Начертание (курсив, полужирность и т.д.) изменить невозможно!")
+        tlpToolTip.SetToolTip(chkPlaySound, "Если отмечено, то программа выдаст стандартный звуковой сигнал, когда торренты будут найдены")
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
@@ -73,6 +75,7 @@
         AppOptions("write_fatal_errors") = chkWriteFatalErrors.Checked
         AppOptions("check_for_updates") = chkCheckUpdates.Checked
         AppOptions("confirm_exit") = chkConfirmExit.Checked
+        AppOptions("play_sound") = chkPlaySound.Checked
         AppOptions("dgv_font_bold") = DGV_BOLD.Font
         AppOptions("dgv_font_normal") = DGV_NORMAL.Font
         CHECK_INTERVAL = CInt(txtCheckInterval.Text) * 60000
