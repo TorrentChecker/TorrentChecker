@@ -69,12 +69,6 @@ Public Class frmMain
 
             ReadSettings()
 
-            'fonts
-            If AppOptions.ContainsKey("dgv_font_bold") AndAlso AppOptions.ContainsKey("dgv_font_normal") Then
-                DGV_BOLD = New DataGridViewCellStyle With {.Font = New Font(DirectCast(AppOptions("dgv_font_bold"), Font), FontStyle.Bold)}
-                DGV_NORMAL = New DataGridViewCellStyle With {.Font = New Font(DirectCast(AppOptions("dgv_font_normal"), Font), FontStyle.Regular)}
-            End If
-
             'apply fonts
             dgvTorrents.DefaultCellStyle = DGV_NORMAL
             dgvKeyWords.DefaultCellStyle = DGV_NORMAL
@@ -1374,6 +1368,10 @@ Public Class frmMain
         trayIcon.ShowBalloonTip(5000, title, text, ToolTipIcon.Info)
         trayIcon.Text = APP_NAME & vbCrLf & title
         tmrTray.Enabled = True
+
+        If AppOptions("play_sound") Then
+            Media.SystemSounds.Exclamation.Play()
+        End If
     End Sub
 
     Private Sub DisableTrayBlinking()

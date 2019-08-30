@@ -212,6 +212,18 @@ Module mdlSettings
             If AppAllSettings.ContainsKey("AppOptions") Then
                 AppOptions = AppAllSettings("AppOptions")
             End If
+
+            'new keys in AppOptions after 3.0.6
+            'added 20190829
+            If Not AppOptions.ContainsKey("play_sound") Then
+                AppOptions.Add("play_sound", False)
+            End If
+
+            'fonts
+            If AppOptions.ContainsKey("dgv_font_bold") AndAlso AppOptions.ContainsKey("dgv_font_normal") Then
+                DGV_BOLD = New DataGridViewCellStyle With {.Font = New Font(DirectCast(AppOptions("dgv_font_bold"), Font), FontStyle.Bold)}
+                DGV_NORMAL = New DataGridViewCellStyle With {.Font = New Font(DirectCast(AppOptions("dgv_font_normal"), Font), FontStyle.Regular)}
+            End If
         End Try
     End Sub
 
