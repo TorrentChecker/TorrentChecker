@@ -208,6 +208,8 @@
             For Each dgvr As DataGridViewRow In frmMain.dgvTorrents.Rows
                 If dgvr.DefaultCellStyle Is _DGV_BOLD Then
                     dgvr.DefaultCellStyle = DGV_BOLD
+                Else
+                    dgvr.DefaultCellStyle = DGV_NORMAL
                 End If
             Next
 
@@ -215,6 +217,8 @@
             For Each dgvr As DataGridViewRow In frmMain.dgvKeyWords.Rows
                 If dgvr.DefaultCellStyle Is _DGV_BOLD Then
                     dgvr.DefaultCellStyle = DGV_BOLD
+                Else
+                    dgvr.DefaultCellStyle = DGV_NORMAL
                 End If
             Next
         Catch ex As Exception
