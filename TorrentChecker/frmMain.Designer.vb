@@ -103,6 +103,9 @@ Partial Class frmMain
         Me.tmrCheckUpdate = New System.Windows.Forms.Timer(Me.components)
         Me.lblShowNewVersion = New System.Windows.Forms.Label()
         Me.trayIconPM = New System.Windows.Forms.NotifyIcon(Me.components)
+        Me.cmsiMarkSelectedAsUnRead = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsiMarkAllAsUnRead_t = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsiMarkAllAsUnRead = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.dgvTorrents, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.cmsTorrents.SuspendLayout()
         CType(Me.scMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -164,48 +167,48 @@ Partial Class frmMain
         '
         'cmsTorrents
         '
-        Me.cmsTorrents.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsiCopyLink, Me.ToolStripMenuItem1, Me.cmsiMarkSelectedAsRead, Me.cmsiDeleteSelectedTorrents, Me.ToolStripMenuItem2, Me.cmsiMarkAllAsRead_t, Me.cmsiClearAll_t})
+        Me.cmsTorrents.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsiCopyLink, Me.ToolStripMenuItem1, Me.cmsiMarkSelectedAsRead, Me.cmsiMarkSelectedAsUnRead, Me.cmsiDeleteSelectedTorrents, Me.ToolStripMenuItem2, Me.cmsiMarkAllAsRead_t, Me.cmsiMarkAllAsUnRead_t, Me.cmsiClearAll_t})
         Me.cmsTorrents.Name = "cmsTorrents"
-        Me.cmsTorrents.Size = New System.Drawing.Size(349, 126)
+        Me.cmsTorrents.Size = New System.Drawing.Size(362, 170)
         '
         'cmsiCopyLink
         '
         Me.cmsiCopyLink.Name = "cmsiCopyLink"
-        Me.cmsiCopyLink.Size = New System.Drawing.Size(348, 22)
+        Me.cmsiCopyLink.Size = New System.Drawing.Size(361, 22)
         Me.cmsiCopyLink.Text = "Скопировать ссылку в буфер обмена"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(345, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(358, 6)
         '
         'cmsiMarkSelectedAsRead
         '
         Me.cmsiMarkSelectedAsRead.Name = "cmsiMarkSelectedAsRead"
-        Me.cmsiMarkSelectedAsRead.Size = New System.Drawing.Size(348, 22)
+        Me.cmsiMarkSelectedAsRead.Size = New System.Drawing.Size(361, 22)
         Me.cmsiMarkSelectedAsRead.Text = "Отметить выбранные торренты как прочитанные"
         '
         'cmsiDeleteSelectedTorrents
         '
         Me.cmsiDeleteSelectedTorrents.Name = "cmsiDeleteSelectedTorrents"
-        Me.cmsiDeleteSelectedTorrents.Size = New System.Drawing.Size(348, 22)
+        Me.cmsiDeleteSelectedTorrents.Size = New System.Drawing.Size(361, 22)
         Me.cmsiDeleteSelectedTorrents.Text = "Удалить выбранные торренты из списка"
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(345, 6)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(358, 6)
         '
         'cmsiMarkAllAsRead_t
         '
         Me.cmsiMarkAllAsRead_t.Name = "cmsiMarkAllAsRead_t"
-        Me.cmsiMarkAllAsRead_t.Size = New System.Drawing.Size(348, 22)
+        Me.cmsiMarkAllAsRead_t.Size = New System.Drawing.Size(361, 22)
         Me.cmsiMarkAllAsRead_t.Text = "Отметить все торренты как прочитанные"
         '
         'cmsiClearAll_t
         '
         Me.cmsiClearAll_t.Name = "cmsiClearAll_t"
-        Me.cmsiClearAll_t.Size = New System.Drawing.Size(348, 22)
+        Me.cmsiClearAll_t.Size = New System.Drawing.Size(361, 22)
         Me.cmsiClearAll_t.Text = "Очистить все найденные торренты"
         '
         'txtSearch
@@ -302,9 +305,9 @@ Partial Class frmMain
         '
         'cmsKeyWord
         '
-        Me.cmsKeyWord.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsiAddKeyWord, Me.ToolStripMenuItem3, Me.cmsiEditKeyWord, Me.cmsiDeleteSelectedKW, Me.ToolStripMenuItem4, Me.cmsiMarkAllAsRead, Me.cmsiClearAll, Me.ToolStripMenuItem5, Me.cmsiPause, Me.cmsiResume})
+        Me.cmsKeyWord.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsiAddKeyWord, Me.ToolStripMenuItem3, Me.cmsiEditKeyWord, Me.cmsiDeleteSelectedKW, Me.ToolStripMenuItem4, Me.cmsiMarkAllAsRead, Me.cmsiMarkAllAsUnRead, Me.cmsiClearAll, Me.ToolStripMenuItem5, Me.cmsiPause, Me.cmsiResume})
         Me.cmsKeyWord.Name = "cmsKeyWord"
-        Me.cmsKeyWord.Size = New System.Drawing.Size(337, 176)
+        Me.cmsKeyWord.Size = New System.Drawing.Size(337, 220)
         '
         'cmsiAddKeyWord
         '
@@ -711,6 +714,24 @@ Partial Class frmMain
         Me.trayIconPM.Text = "NotifyIcon1"
         Me.trayIconPM.Visible = True
         '
+        'cmsiMarkSelectedAsUnRead
+        '
+        Me.cmsiMarkSelectedAsUnRead.Name = "cmsiMarkSelectedAsUnRead"
+        Me.cmsiMarkSelectedAsUnRead.Size = New System.Drawing.Size(361, 22)
+        Me.cmsiMarkSelectedAsUnRead.Text = "Отметить выбранные торренты как непрочитанные"
+        '
+        'cmsiMarkAllAsUnRead_t
+        '
+        Me.cmsiMarkAllAsUnRead_t.Name = "cmsiMarkAllAsUnRead_t"
+        Me.cmsiMarkAllAsUnRead_t.Size = New System.Drawing.Size(361, 22)
+        Me.cmsiMarkAllAsUnRead_t.Text = "Отметить все торренты как непрочитанные"
+        '
+        'cmsiMarkAllAsUnRead
+        '
+        Me.cmsiMarkAllAsUnRead.Name = "cmsiMarkAllAsUnRead"
+        Me.cmsiMarkAllAsUnRead.Size = New System.Drawing.Size(336, 22)
+        Me.cmsiMarkAllAsUnRead.Text = "Отметить все торренты как непрочитанные"
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -828,4 +849,7 @@ Partial Class frmMain
     Friend WithEvents msiPM_ru As ToolStripMenuItem
     Friend WithEvents msiPM_kz As ToolStripMenuItem
     Friend WithEvents trayIconPM As NotifyIcon
+    Friend WithEvents cmsiMarkSelectedAsUnRead As ToolStripMenuItem
+    Friend WithEvents cmsiMarkAllAsUnRead_t As ToolStripMenuItem
+    Friend WithEvents cmsiMarkAllAsUnRead As ToolStripMenuItem
 End Class
