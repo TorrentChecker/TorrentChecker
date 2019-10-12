@@ -1120,6 +1120,50 @@ Public Class frmMain
         End If
     End Sub
 
+    Private Sub MarkAllAsUnRead()
+        'mark all torrents as unread
+
+        Dim kw_id As Integer
+        Dim cnt_new As String
+
+        SetDefaultSearchText()
+
+        If bsrcFoundTorrents.Count > 0 Then
+
+            For Each dr_kw As DataGridViewRow In dgvKeyWords.SelectedRows
+                If dr_kw.Index = 0 Then 'root element selected
+                    For Each dr As DataRow In dtFoundTorrents.Select(String.Format("{0}=FALSE", Columns.marked_as_new.ToString))
+                        dr(Columns.marked_as_new.ToString) = True
+                    Next
+
+                    For i As Integer = 1 To UBound(KwListToParamsMapping)
+                        kw_id = KwListToParamsMapping(i)
+                        'recalculate
+                        cnt_new = CStr(dtFoundTorrents.Compute("COUNT(keyword_id)", String.Format("{0}={1} AND {2}=TRUE", Columns.keyword_id.ToString, kw_id, Columns.marked_as_new.ToString)))
+                        KeyWordsParams(kw_id)("count_of_new") = cnt_new
+                        ShowCountOfNewTorrents(kw_id)
+                    Next
+
+                    Exit For
+                End If
+
+                kw_id = KwListToParamsMapping(dr_kw.Index)
+
+                For Each dr As DataRow In dtFoundTorrents.Select(String.Format("{0}={1} AND {2}=FALSE", Columns.keyword_id.ToString, kw_id, Columns.marked_as_new.ToString))
+                    dr(Columns.marked_as_new.ToString) = True
+                Next
+
+                'recalculate
+                cnt_new = CStr(dtFoundTorrents.Compute("COUNT(keyword_id)", String.Format("{0}={1} AND {2}=TRUE", Columns.keyword_id.ToString, kw_id, Columns.marked_as_new.ToString)))
+                KeyWordsParams(kw_id)("count_of_new") = cnt_new
+                ShowCountOfNewTorrents(kw_id)
+
+            Next
+
+            SaveSettings()
+        End If
+    End Sub
+
     Private Sub cmsiClearAll_Click(sender As Object, e As EventArgs) Handles cmsiClearAll.Click
         ClearAll()
     End Sub
@@ -1699,5 +1743,35 @@ Public Class frmMain
         If Not e.Button = Windows.Forms.MouseButtons.Left Then Exit Sub
 
         AppHide(Not APP_HIDDEN)
+    End Sub
+
+    Private Sub CmsiMarkSelectedAsUnRead_Click(sender As Object, e As EventArgs) Handles cmsiMarkSelectedAsUnRead.Click
+        'mark selected torrents as unread
+
+        Dim selected_rows As DataGridViewSelectedRowCollection = dgvTorrents.SelectedRows
+        Dim cnt_new As String
+
+        For Each obj As Object In selected_rows.Cast(Of DataGridViewRow)().Select(Function(dgvr) dgvr.DataBoundItem)
+            Dim drw As DataRowView = CType(obj, DataRowView)
+            drw.Row(Columns.marked_as_new.ToString) = True
+        Next
+
+        'recalculate
+        For Each kw_id As Integer In KeyWordsParams.Keys
+            If kw_id = 0 Then Continue For
+            cnt_new = CStr(dtFoundTorrents.Compute("COUNT(keyword_id)", String.Format("{0}={1} AND {2}=TRUE", Columns.keyword_id.ToString, kw_id, Columns.marked_as_new.ToString)))
+            KeyWordsParams(kw_id)("count_of_new") = cnt_new
+            ShowCountOfNewTorrents(kw_id)
+        Next
+
+        SaveSettings()
+    End Sub
+
+    Private Sub CmsiMarkAllAsUnRead_t_Click(sender As Object, e As EventArgs) Handles cmsiMarkAllAsUnRead_t.Click
+        MarkAllAsUnRead()
+    End Sub
+
+    Private Sub CmsiMarkAllAsUnRead_Click(sender As Object, e As EventArgs) Handles cmsiMarkAllAsUnRead.Click
+        MarkAllAsUnRead()
     End Sub
 End Class
