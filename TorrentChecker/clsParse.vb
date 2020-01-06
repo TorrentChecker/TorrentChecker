@@ -79,7 +79,7 @@ Public Class clsParse
                         'topic_author
                         pattern &= ".*?<a.*?>(.*?)</a>"
                         'torrent_dl
-                        pattern &= ".*?<td.*?>\s+(?:<a.*?dl.php\?t=(.*?)"">)?"
+                        pattern &= ".*?<td.*?>\s+(?:<a.*?dl.php\?t=(.*?)"" >)?"
                         'torrent_size
                         pattern &= "([\d.]+)"
                         'torrent_dimension
