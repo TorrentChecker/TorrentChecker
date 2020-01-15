@@ -79,13 +79,13 @@ Public Class clsParse
                         'topic_author
                         pattern &= ".*?<a.*?>(.*?)</a>"
                         'torrent_dl
-                        pattern &= ".*?<td.*?>\s+(?:<a.*?dl.php\?t=(.*?)"" >)?"
+                        pattern &= ".*?<td.*?>\s+(?:<a.*?dl.php\?t=(.*?)""\s*>)?"
                         'torrent_size
                         pattern &= "([\d.]+)"
                         'torrent_dimension
                         pattern &= "&nbsp;(.*?)(?:\s&#8595;)?(?:</a>)?\s+</td>"
                         'torrent_timestamp
-                        pattern &= "\s+(?:<td.*?</td>\s+){3}\s+<td.*?data-ts_text=""(\d+)"">.*?</td>"
+                        pattern &= ".*?<td.*?data-ts_text=""(\d+)"">.*?</td>"
                         'end parsing
                         pattern &= ".*?</tr>"
 
