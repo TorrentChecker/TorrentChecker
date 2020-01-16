@@ -887,7 +887,7 @@ Public Class frmMain
         Try
             If isFatal AndAlso AppOptions("write_fatal_errors") Then
                 Using stream As StreamWriter = File.AppendText(LogPath)
-                    stream.WriteLine(String.Format("=====LOG START [{0}]=====", current_datetime))
+                    stream.WriteLine(String.Format("=====LOG START [{0}] [v.{1}]=====", current_datetime, APP_VERSION))
                     stream.WriteLine(str)
                     stream.WriteLine("-----")
                     stream.WriteLine(base_str)
