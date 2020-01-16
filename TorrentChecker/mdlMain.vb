@@ -159,6 +159,12 @@ Public Module mdlMain
     Public KwListToParamsMapping(0) As Integer  'mapping between KeyWordsBox's index to KeyWordsParams's index
     Public KeyWordsSelectedItem As Integer 'currently selected item in the KeyWordsBox
     Public TrackerSelectedID As Trackers  'currently selected tracker in the frmKeyWord
+    Public AutoLabel As New Dictionary(Of String, Object) From
+        {
+            {"enabled", False},
+            {"value", ""}
+        } 'use or not autolabeling in the frmKeyWord according to the selected forums/formats
+
     Public ForumsSelected As New Dictionary(Of Trackers, String) From
         {
             {Trackers.rutracker, ""},

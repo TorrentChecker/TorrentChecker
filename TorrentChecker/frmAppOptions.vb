@@ -225,4 +225,5 @@
             MsgBox("Не могу изменить шрифт!" & vbCrLf & GetProperExceptionText(ex), MsgBoxStyle.Critical + MsgBoxStyle.OkOnly)
         End Try
     End Sub
+
 End Class

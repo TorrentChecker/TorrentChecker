@@ -22,14 +22,17 @@ Partial Class frmForums
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.btnAccept = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.grpFormatsBox = New System.Windows.Forms.GroupBox()
         Me.grpForumsBox = New System.Windows.Forms.GroupBox()
         Me.lblFilter = New System.Windows.Forms.Label()
         Me.txtFilter = New System.Windows.Forms.TextBox()
+        Me.chkAutoLabel = New System.Windows.Forms.CheckBox()
         Me.lsvForums = New TorrentChecker.clsListViewExt()
         Me.lsvFormats = New TorrentChecker.clsListViewExt()
+        Me.tlpToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.grpFormatsBox.SuspendLayout()
         Me.grpForumsBox.SuspendLayout()
         Me.SuspendLayout()
@@ -94,6 +97,16 @@ Partial Class frmForums
         Me.txtFilter.Size = New System.Drawing.Size(398, 20)
         Me.txtFilter.TabIndex = 2
         '
+        'chkAutoLabel
+        '
+        Me.chkAutoLabel.AutoSize = True
+        Me.chkAutoLabel.Location = New System.Drawing.Point(9, 449)
+        Me.chkAutoLabel.Name = "chkAutoLabel"
+        Me.chkAutoLabel.Size = New System.Drawing.Size(281, 17)
+        Me.chkAutoLabel.TabIndex = 7
+        Me.chkAutoLabel.Text = "Использовать автоматическое назначение метки"
+        Me.chkAutoLabel.UseVisualStyleBackColor = True
+        '
         'lsvForums
         '
         Me.lsvForums.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -130,6 +143,7 @@ Partial Class frmForums
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(557, 475)
+        Me.Controls.Add(Me.chkAutoLabel)
         Me.Controls.Add(Me.grpForumsBox)
         Me.Controls.Add(Me.grpFormatsBox)
         Me.Controls.Add(Me.btnCancel)
@@ -145,6 +159,7 @@ Partial Class frmForums
         Me.grpForumsBox.ResumeLayout(False)
         Me.grpForumsBox.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents btnAccept As System.Windows.Forms.Button
@@ -155,4 +170,6 @@ Partial Class frmForums
     Friend WithEvents lblFilter As System.Windows.Forms.Label
     Friend WithEvents lsvForums As TorrentChecker.clsListViewExt
     Friend WithEvents lsvFormats As TorrentChecker.clsListViewExt
+    Friend WithEvents chkAutoLabel As CheckBox
+    Friend WithEvents tlpToolTip As ToolTip
 End Class
