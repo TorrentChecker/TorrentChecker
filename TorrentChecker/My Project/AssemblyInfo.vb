@@ -11,8 +11,8 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyTitle("TorrentChecker")> 
 <Assembly: AssemblyDescription("")> 
 <Assembly: AssemblyCompany("")> 
-<Assembly: AssemblyProduct("TorrentChecker")> 
-<Assembly: AssemblyCopyright("Copyright ©  2019 hardhouse")> 
+<Assembly: AssemblyProduct("TorrentChecker")>
+<Assembly: AssemblyCopyright("Copyright ©  2019-2020 hardhouse")>
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)> 
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("3.0.9.0")>
-<Assembly: AssemblyFileVersion("3.0.9.0")>
+<Assembly: AssemblyVersion("3.0.10.0")>
+<Assembly: AssemblyFileVersion("3.0.10.0")>
