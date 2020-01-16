@@ -39,6 +39,8 @@ Partial Class frmAppOptions
         Me.grpRunBox = New System.Windows.Forms.GroupBox()
         Me.chkAutoChecking = New System.Windows.Forms.CheckBox()
         Me.gprOtherBox = New System.Windows.Forms.GroupBox()
+        Me.chkPlaySound = New System.Windows.Forms.CheckBox()
+        Me.lblChangeMainFont = New System.Windows.Forms.Label()
         Me.chkCheckUpdates = New System.Windows.Forms.CheckBox()
         Me.chkConfirmExit = New System.Windows.Forms.CheckBox()
         Me.lblClearCache = New System.Windows.Forms.Label()
@@ -48,9 +50,7 @@ Partial Class frmAppOptions
         Me.chkWriteFatalErrors = New System.Windows.Forms.CheckBox()
         Me.chkShowJournalTab = New System.Windows.Forms.CheckBox()
         Me.tlpToolTip = New System.Windows.Forms.ToolTip(Me.components)
-        Me.lblChangeMainFont = New System.Windows.Forms.Label()
         Me.fntdMain = New System.Windows.Forms.FontDialog()
-        Me.chkPlaySound = New System.Windows.Forms.CheckBox()
         Me.grpTrayBox.SuspendLayout()
         Me.grpRunBox.SuspendLayout()
         Me.gprOtherBox.SuspendLayout()
@@ -228,6 +228,27 @@ Partial Class frmAppOptions
         Me.gprOtherBox.TabStop = False
         Me.gprOtherBox.Text = "Разное"
         '
+        'chkPlaySound
+        '
+        Me.chkPlaySound.AutoSize = True
+        Me.chkPlaySound.Location = New System.Drawing.Point(9, 117)
+        Me.chkPlaySound.Name = "chkPlaySound"
+        Me.chkPlaySound.Size = New System.Drawing.Size(126, 17)
+        Me.chkPlaySound.TabIndex = 20
+        Me.chkPlaySound.Text = "Проигрывать звуки"
+        Me.chkPlaySound.UseVisualStyleBackColor = True
+        '
+        'lblChangeMainFont
+        '
+        Me.lblChangeMainFont.AutoSize = True
+        Me.lblChangeMainFont.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.lblChangeMainFont.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.lblChangeMainFont.Location = New System.Drawing.Point(6, 212)
+        Me.lblChangeMainFont.Name = "lblChangeMainFont"
+        Me.lblChangeMainFont.Size = New System.Drawing.Size(170, 13)
+        Me.lblChangeMainFont.TabIndex = 19
+        Me.lblChangeMainFont.Text = "Изменить шрифт главного окна"
+        '
         'chkCheckUpdates
         '
         Me.chkCheckUpdates.AutoSize = True
@@ -306,27 +327,6 @@ Partial Class frmAppOptions
         Me.chkShowJournalTab.TabIndex = 6
         Me.chkShowJournalTab.Text = "Показывать журнал ошибок"
         Me.chkShowJournalTab.UseVisualStyleBackColor = True
-        '
-        'lblChangeMainFont
-        '
-        Me.lblChangeMainFont.AutoSize = True
-        Me.lblChangeMainFont.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lblChangeMainFont.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.lblChangeMainFont.Location = New System.Drawing.Point(6, 212)
-        Me.lblChangeMainFont.Name = "lblChangeMainFont"
-        Me.lblChangeMainFont.Size = New System.Drawing.Size(170, 13)
-        Me.lblChangeMainFont.TabIndex = 19
-        Me.lblChangeMainFont.Text = "Изменить шрифт главного окна"
-        '
-        'chkPlaySound
-        '
-        Me.chkPlaySound.AutoSize = True
-        Me.chkPlaySound.Location = New System.Drawing.Point(9, 117)
-        Me.chkPlaySound.Name = "chkPlaySound"
-        Me.chkPlaySound.Size = New System.Drawing.Size(126, 17)
-        Me.chkPlaySound.TabIndex = 20
-        Me.chkPlaySound.Text = "Проигрывать звуки"
-        Me.chkPlaySound.UseVisualStyleBackColor = True
         '
         'frmAppOptions
         '

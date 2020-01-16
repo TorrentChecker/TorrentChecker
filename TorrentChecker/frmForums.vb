@@ -14,6 +14,7 @@
 
             txtFilter.Text = ""
             lsvForums.MultiSelect = (TrackerSelectedID = Trackers.rutracker)
+            chkAutoLabel.Checked = False
 
             If TrackerSelectedID = Trackers.rutracker Then
                 grpFormatsBox.Visible = False
@@ -120,23 +121,25 @@
             Exit Sub
         End If
 
+        AutoLabel("enabled") = chkAutoLabel.Checked
+
         'save forums
-        If lsvForums.SelectedItems.Count = 0 Then 'nothing selected or empty list
+        If lsvForums.SelectedItems.Count = 0 OrElse lsvForums.Items(0).Selected Then 'nothing selected, empty list or first item selected
             ForumsSelected(TrackerSelectedID) = If(TrackerSelectedID = Trackers.rutracker, "-1", "0")
+            AutoLabel("value") = "Все форумы"
         Else
-            If TrackerSelectedID = Trackers.rutracker AndAlso lsvForums.Items(0).Selected Then
-                ForumsSelected(TrackerSelectedID) = "-1"
-            Else
-                ForumsSelected(TrackerSelectedID) = String.Join(",", From item As ListViewItem In lsvForums.SelectedItems Select item.SubItems(1).Text)
-            End If
+            ForumsSelected(TrackerSelectedID) = String.Join(",", From item As ListViewItem In lsvForums.SelectedItems Select item.SubItems(1).Text)
+            AutoLabel("value") = String.Join(" / ", From item As ListViewItem In lsvForums.SelectedItems Select item.SubItems(0).Text.Trim.TrimStart("|", "-", " "))
         End If
 
         'save formats
         If TrackerSelectedID = Trackers.kinozal Then
-            If lsvFormats.SelectedItems.Count = 0 Then 'nothing selected or empty list
+            If lsvFormats.SelectedItems.Count = 0 OrElse lsvFormats.Items(0).Selected Then 'nothing selected, empty list or first item selected
                 FormatsSelected(TrackerSelectedID) = "0"
+                AutoLabel("value") &= " (Все форматы)"
             Else
                 FormatsSelected(TrackerSelectedID) = String.Join(",", From item As ListViewItem In lsvFormats.SelectedItems Select item.SubItems(1).Text)
+                AutoLabel("value") &= " (" & String.Join(" / ", From item As ListViewItem In lsvFormats.SelectedItems Select item.SubItems(0).Text.Trim.TrimStart("|", "-", " ")) & ")"
             End If
         End If
 
@@ -209,5 +212,7 @@
         For Each ctrl As Control In Me.Controls
             ctrl.Font = FONT_NORMAL
         Next
+
+        tlpToolTip.SetToolTip(chkAutoLabel, "Позволяет автоматически сгенерировать ""Метку для отображения"" в окне ключевых слов (она будет переименована согласно выбранным форумам)")
     End Sub
 End Class

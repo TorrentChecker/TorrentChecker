@@ -277,6 +277,7 @@ Public Class frmKeyWord
             frmForums.ShowDialog()
             Me.BringToFront()
             ShowSelectedForumsCount()
+            AutoLabeling()
         End If
     End Sub
 
@@ -299,6 +300,7 @@ Public Class frmKeyWord
             frmForums.ShowDialog()
             Me.BringToFront()
             ShowSelectedForumsCount()
+            AutoLabeling()
         End If
     End Sub
 
@@ -332,6 +334,17 @@ Public Class frmKeyWord
             lblKinozalForumsCount.Visible = True
         Else
             lblKinozalForumsCount.Visible = False
+        End If
+    End Sub
+
+    Private Sub AutoLabeling()
+        If AutoLabel("enabled") = True Then
+            Dim str As String = AutoLabel("value")
+            If str.Length > txtKeyWordLabel.MaxLength Then
+                str = str.Remove(txtKeyWordLabel.MaxLength - 3) & "..."
+            End If
+            txtKeyWordLabel.Text = str
+            AutoLabel("enabled") = False
         End If
     End Sub
 
