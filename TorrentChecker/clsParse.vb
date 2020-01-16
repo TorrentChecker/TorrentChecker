@@ -85,7 +85,7 @@ Public Class clsParse
                         'torrent_dimension
                         pattern &= "&nbsp;(.*?)(?:\s&#8595;)?(?:</a>)?\s+</td>"
                         'torrent_timestamp
-                        pattern &= ".*?<td.*?data-ts_text=""(\d+)"">.*?</td>"
+                        pattern &= ".*?(?:<td.*?</td>.*?){3}.*?<td.*?data-ts_text=""(\d+)"">.*?</td>"
                         'end parsing
                         pattern &= ".*?</tr>"
 
