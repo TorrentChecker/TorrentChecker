@@ -54,7 +54,7 @@ Public Class frmMain
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             trayIcon.Text = APP_NAME
-            trayIconPM.Text = APP_NAME & vbCrLf & "У вас есть новые персональные сообщения!"
+            trayIconPM.Text = APP_NAME & vbCrLf & "Eсть новые персональные сообщения!"
 
             HideCaptchaTab()
             AddHandler bsrcFoundTorrents.CurrentChanged, AddressOf bsrcFoundTorrents_CurrentChanged
