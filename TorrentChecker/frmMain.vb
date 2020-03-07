@@ -1774,4 +1774,17 @@ Public Class frmMain
     Private Sub CmsiMarkAllAsUnRead_Click(sender As Object, e As EventArgs) Handles cmsiMarkAllAsUnRead.Click
         MarkAllAsUnRead()
     End Sub
+
+    Private Sub dgvTorrents_KeyUp(sender As Object, e As KeyEventArgs) Handles dgvTorrents.KeyUp
+        'mark row as read by keyUP/keyDOWN/pageUP/pageDOWN
+        If Not (e.KeyCode = Keys.Up Or e.KeyCode = Keys.Down Or e.KeyCode = Keys.PageUp Or e.KeyCode = Keys.PageDown) Or dgvTorrents.Rows.Count = 0 Then Exit Sub
+        Dim drw As DataRowView = CType(dgvTorrents.CurrentRow.DataBoundItem, DataRowView)
+
+        If drw.Row(Columns.marked_as_new.ToString) Then
+            Dim kw_id As Integer = drw.Row(Columns.keyword_id.ToString)
+            drw.Row(Columns.marked_as_new.ToString) = False
+            KeyWordsParams(kw_id)("count_of_new") = CStr(CInt(KeyWordsParams(kw_id)("count_of_new")) - 1)
+            ShowCountOfNewTorrents(kw_id)
+        End If
+    End Sub
 End Class
