@@ -1003,7 +1003,7 @@ Public Class frmMain
 
         Try
             Dim url As String
-            url = String.Join(vbCrLf, From row As DataGridViewRow In dgvTorrents.SelectedRows Select TrackerParams(row.Cells(Columns.tracker_id.ToString).Value)("topic_url") & row.Cells(Columns.topic_id.ToString).Value)
+            url = String.Join(vbCrLf, From row As DataGridViewRow In dgvTorrents.SelectedRows Order By row.Index Select TrackerParams(row.Cells(Columns.tracker_id.ToString).Value)("topic_url") & row.Cells(Columns.topic_id.ToString).Value)
             Clipboard.SetText(url)
         Catch ex As Exception
             MsgBox("Ошибка буфера обмена" & vbCrLf & GetProperExceptionText(ex), MsgBoxStyle.Critical + MsgBoxStyle.OkOnly)
@@ -1787,4 +1787,14 @@ Public Class frmMain
             ShowCountOfNewTorrents(kw_id)
         End If
     End Sub
+
+    Protected Overrides Function ProcessCmdKey(ByRef msg As Message, k As Keys) As Boolean
+        'override standard datagridview shortcut Ctrl+Shift+C
+        If k = (Keys.C Or Keys.Control Or Keys.Shift) AndAlso dgvTorrents.Focused AndAlso dgvTorrents.Rows.Count > 0 Then
+            cmsiCopyLink_Click(Me, New EventArgs)
+            Return True
+        End If
+
+        Return MyBase.ProcessCmdKey(msg, k)
+    End Function
 End Class
