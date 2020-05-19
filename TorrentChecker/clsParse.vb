@@ -257,9 +257,9 @@ Public Class clsParse
                         ret_forums_result.Status = ParseForumResult.ParseStatuses.parse_ok
                         str = match.Value
                         'parse each line
-                        pattern = "(?:<optgroup label=""(.*?)"">)?\s<option.*?"
+                        pattern = "(?:<optgroup label=""(.*?)"">)?\s*<option.*?"
                         'value
-                        pattern &= "value=""(.*?)""(?:\sclass=""(root_forum)(?:\shas_sf)?"")?(?:\stitle=""(.*?)"")?>"
+                        pattern &= "value=""(.*?)"".*?(?:\s*class='(root_forum)(?:\s*has_sf)?')?(?:\s*title='(.*?)')?\s*>"
                         'forum_name
                         pattern &= "(.*?)"
                         'end parsing
