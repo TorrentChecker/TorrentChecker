@@ -3,7 +3,10 @@
 
 Imports System.Net
 Imports System.Net.Http
+Imports System.Text
 Imports System.Threading
+Imports System.Web
+
 Public Class clsHTTP
     Class HTTPResult
         Public Property Result As String
@@ -100,9 +103,14 @@ Public Class clsHTTP
 
     Public Async Function HTTPPost(ByVal Url As String, ByVal PostData As Dictionary(Of String, String), Optional ByVal asBinary As Boolean = False) As Task(Of HTTPResult)
         Dim token As CancellationToken = cts.Token
+        Dim post_encoding As String = "windows-1251"
+        Dim postData_encoded As String = String.Join("&", PostData.Select(Function(kvp) String.Format("{0}={1}", kvp.Key, HttpUtility.UrlEncode(kvp.Value, Encoding.GetEncoding(post_encoding)))))
+        Dim postData_bytes As Byte() = Encoding.GetEncoding(post_encoding).GetBytes(postData_encoded)
 
         Try
-            Using content As FormUrlEncodedContent = New FormUrlEncodedContent(PostData)
+            'Using content As FormUrlEncodedContent = New FormUrlEncodedContent(PostData)
+            Using content As ByteArrayContent = New ByteArrayContent(postData_bytes)
+                content.Headers.Add("Content-Type", "application/x-www-form-urlencoded")
                 With http_request
                     .DefaultRequestHeaders.Clear()
                     .DefaultRequestHeaders.ConnectionClose = True
