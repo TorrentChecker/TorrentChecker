@@ -135,7 +135,7 @@ Public Class clsParse
                     ret_result.GotPM = match.Success
 
                     'get results
-                    match = Regex.Match(str, "<table class=""t_peer w100p"" cellspacing=0 cellpadding=0>.*?</table>", RegexOptions.Singleline, REGEX_TIMEOUT)
+                    match = Regex.Match(str, "<table class=""t_peer w100p"">.*?</table>", RegexOptions.Singleline, REGEX_TIMEOUT)
                     If match.Success Then
                         ret_result.Status = ParseResult.ParseStatuses.parse_ok
                         'fill the forums datatable
