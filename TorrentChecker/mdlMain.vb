@@ -57,7 +57,7 @@ Public Module mdlMain
             {"top", Screen.PrimaryScreen.Bounds.Height / 2 - 300},
             {"left", Screen.PrimaryScreen.Bounds.Width / 2 - 500},
             {"windowstate", FormWindowState.Normal},
-            {"splitter_distance", 170}
+            {"splitter_distance", 270}
         }
 
     Public Enum Trackers
@@ -79,10 +79,11 @@ Public Module mdlMain
     Public dtFoundTorrents As New DataTable 'torrents found during the current session
     Public dtStoredTorrents As New DataTable 'all found torrents
     'fonts
-    Public FONT_BOLD As Font = New Font("Verdana", 8.0!, FontStyle.Bold)
-    Public FONT_NORMAL As Font = New Font("Verdana", 8.0!, FontStyle.Regular)
-    Public FONT_ITALIC As Font = New Font("Verdana", 8.0!, FontStyle.Italic)
-    Public FONT_UNDERLINE As Font = New Font("Verdana", 8.0!, FontStyle.Underline)
+    Public FONT_BOLD As Font = New Font("Verdana", 8.25, FontStyle.Bold)
+    Public FONT_NORMAL As Font = New Font("Verdana", 8.25, FontStyle.Regular)
+    Public FONT_ITALIC As Font = New Font("Verdana", 8.25, FontStyle.Italic)
+    Public FONT_UNDERLINE As Font = New Font("Verdana", 8.25, FontStyle.Underline)
+
     Public UNIX_TIME_ORIGIN As DateTime = New DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
     Public DGV_BOLD As New DataGridViewCellStyle With {.Font = FONT_BOLD}
     Public DGV_NORMAL As New DataGridViewCellStyle With {.Font = FONT_NORMAL}
@@ -210,7 +211,7 @@ Public Module mdlMain
         }
 
     'constants
-    Public APP_VERSION As String = "3.0.14"
+    Public APP_VERSION As String = "3.0.15"
     Public APP_NAME As String = "TorrentChecker v" & APP_VERSION
     Public HOME_PAGE_URL As String = TrackerBase(Trackers.rutracker) & "/forum/viewtopic.php?t=992695"
     Public REGEX_TIMEOUT As TimeSpan = TimeSpan.FromMilliseconds(1000)

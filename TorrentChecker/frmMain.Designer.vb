@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmMain
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,13 +20,10 @@ Partial Class frmMain
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.btnConnect = New System.Windows.Forms.Button()
         Me.dgvTorrents = New System.Windows.Forms.DataGridView()
@@ -106,6 +103,7 @@ Partial Class frmMain
         Me.tmrCheckUpdate = New System.Windows.Forms.Timer(Me.components)
         Me.lblShowNewVersion = New System.Windows.Forms.Label()
         Me.trayIconPM = New System.Windows.Forms.NotifyIcon(Me.components)
+        Me.pGrpKWBox = New System.Windows.Forms.Panel()
         CType(Me.dgvTorrents, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.cmsTorrents.SuspendLayout()
         CType(Me.scMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -124,14 +122,15 @@ Partial Class frmMain
         Me.msMain.SuspendLayout()
         Me.cmsTray.SuspendLayout()
         Me.stStrip.SuspendLayout()
+        Me.pGrpKWBox.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnConnect
         '
-        Me.btnConnect.AutoSize = True
-        Me.btnConnect.Location = New System.Drawing.Point(5, 27)
+        Me.btnConnect.Location = New System.Drawing.Point(6, 27)
+        Me.btnConnect.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.btnConnect.Name = "btnConnect"
-        Me.btnConnect.Size = New System.Drawing.Size(98, 26)
+        Me.btnConnect.Size = New System.Drawing.Size(114, 26)
         Me.btnConnect.TabIndex = 0
         Me.btnConnect.Text = "Подключиться"
         Me.btnConnect.UseVisualStyleBackColor = True
@@ -153,16 +152,17 @@ Partial Class frmMain
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgvTorrents.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvTorrents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.dgvTorrents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvTorrents.ContextMenuStrip = Me.cmsTorrents
         Me.dgvTorrents.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvTorrents.Location = New System.Drawing.Point(3, 3)
+        Me.dgvTorrents.Location = New System.Drawing.Point(4, 3)
+        Me.dgvTorrents.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.dgvTorrents.Name = "dgvTorrents"
         Me.dgvTorrents.ReadOnly = True
         Me.dgvTorrents.RowHeadersVisible = False
         Me.dgvTorrents.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.dgvTorrents.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvTorrents.Size = New System.Drawing.Size(752, 428)
+        Me.dgvTorrents.Size = New System.Drawing.Size(806, 428)
         Me.dgvTorrents.TabIndex = 2
         '
         'cmsTorrents
@@ -226,10 +226,11 @@ Partial Class frmMain
         'txtSearch
         '
         Me.txtSearch.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtSearch.Location = New System.Drawing.Point(681, 33)
+        Me.txtSearch.Location = New System.Drawing.Point(794, 33)
+        Me.txtSearch.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.txtSearch.MaxLength = 100
         Me.txtSearch.Name = "txtSearch"
-        Me.txtSearch.Size = New System.Drawing.Size(265, 20)
+        Me.txtSearch.Size = New System.Drawing.Size(308, 20)
         Me.txtSearch.TabIndex = 4
         '
         'scMain
@@ -239,21 +240,22 @@ Partial Class frmMain
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.scMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.scMain.FixedPanel = System.Windows.Forms.FixedPanel.Panel1
-        Me.scMain.Location = New System.Drawing.Point(5, 69)
+        Me.scMain.Location = New System.Drawing.Point(6, 69)
+        Me.scMain.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.scMain.Name = "scMain"
         '
         'scMain.Panel1
         '
-        Me.scMain.Panel1.Controls.Add(Me.grpKWBox)
-        Me.scMain.Panel1.Controls.Add(Me.btnAddKeyWord)
+        Me.scMain.Panel1.Controls.Add(Me.pGrpKWBox)
         Me.scMain.Panel1MinSize = 0
         '
         'scMain.Panel2
         '
         Me.scMain.Panel2.Controls.Add(Me.tbControl)
         Me.scMain.Panel2MinSize = 500
-        Me.scMain.Size = New System.Drawing.Size(942, 462)
-        Me.scMain.SplitterDistance = 170
+        Me.scMain.Size = New System.Drawing.Size(1099, 462)
+        Me.scMain.SplitterDistance = 270
+        Me.scMain.SplitterWidth = 5
         Me.scMain.TabIndex = 0
         '
         'grpKWBox
@@ -262,9 +264,11 @@ Partial Class frmMain
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.grpKWBox.Controls.Add(Me.dgvKeyWords)
-        Me.grpKWBox.Location = New System.Drawing.Point(0, 3)
+        Me.grpKWBox.Location = New System.Drawing.Point(4, 3)
+        Me.grpKWBox.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.grpKWBox.Name = "grpKWBox"
-        Me.grpKWBox.Size = New System.Drawing.Size(167, 417)
+        Me.grpKWBox.Padding = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.grpKWBox.Size = New System.Drawing.Size(263, 418)
         Me.grpKWBox.TabIndex = 4
         Me.grpKWBox.TabStop = False
         Me.grpKWBox.Text = "Ключевые фразы: 0"
@@ -279,40 +283,17 @@ Partial Class frmMain
         Me.dgvKeyWords.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvKeyWords.BackgroundColor = System.Drawing.SystemColors.Window
         Me.dgvKeyWords.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvKeyWords.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvKeyWords.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvKeyWords.ColumnHeadersVisible = False
         Me.dgvKeyWords.ContextMenuStrip = Me.cmsKeyWord
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvKeyWords.DefaultCellStyle = DataGridViewCellStyle3
         Me.dgvKeyWords.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvKeyWords.Location = New System.Drawing.Point(3, 16)
+        Me.dgvKeyWords.Location = New System.Drawing.Point(4, 16)
+        Me.dgvKeyWords.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.dgvKeyWords.Name = "dgvKeyWords"
         Me.dgvKeyWords.ReadOnly = True
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvKeyWords.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvKeyWords.RowHeadersVisible = False
         Me.dgvKeyWords.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvKeyWords.Size = New System.Drawing.Size(161, 398)
+        Me.dgvKeyWords.Size = New System.Drawing.Size(255, 399)
         Me.dgvKeyWords.TabIndex = 1
         '
         'cmsKeyWord
@@ -387,9 +368,10 @@ Partial Class frmMain
         'btnAddKeyWord
         '
         Me.btnAddKeyWord.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnAddKeyWord.Location = New System.Drawing.Point(66, 426)
+        Me.btnAddKeyWord.Location = New System.Drawing.Point(149, 427)
+        Me.btnAddKeyWord.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.btnAddKeyWord.Name = "btnAddKeyWord"
-        Me.btnAddKeyWord.Size = New System.Drawing.Size(98, 26)
+        Me.btnAddKeyWord.Size = New System.Drawing.Size(114, 26)
         Me.btnAddKeyWord.TabIndex = 3
         Me.btnAddKeyWord.Text = "Добавить"
         Me.btnAddKeyWord.UseVisualStyleBackColor = True
@@ -401,18 +383,20 @@ Partial Class frmMain
         Me.tbControl.Controls.Add(Me.TabPage_captcha)
         Me.tbControl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tbControl.Location = New System.Drawing.Point(0, 0)
+        Me.tbControl.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.tbControl.Name = "tbControl"
         Me.tbControl.SelectedIndex = 0
-        Me.tbControl.Size = New System.Drawing.Size(766, 460)
+        Me.tbControl.Size = New System.Drawing.Size(822, 460)
         Me.tbControl.TabIndex = 4
         '
         'TabPage_torrents
         '
         Me.TabPage_torrents.Controls.Add(Me.dgvTorrents)
         Me.TabPage_torrents.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage_torrents.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.TabPage_torrents.Name = "TabPage_torrents"
-        Me.TabPage_torrents.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage_torrents.Size = New System.Drawing.Size(758, 434)
+        Me.TabPage_torrents.Padding = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.TabPage_torrents.Size = New System.Drawing.Size(814, 434)
         Me.TabPage_torrents.TabIndex = 0
         Me.TabPage_torrents.Text = "Найденные торренты: 0"
         Me.TabPage_torrents.UseVisualStyleBackColor = True
@@ -421,9 +405,10 @@ Partial Class frmMain
         '
         Me.TabPage_journal.Controls.Add(Me.rtbLogTextBox)
         Me.TabPage_journal.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage_journal.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.TabPage_journal.Name = "TabPage_journal"
-        Me.TabPage_journal.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage_journal.Size = New System.Drawing.Size(758, 434)
+        Me.TabPage_journal.Padding = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.TabPage_journal.Size = New System.Drawing.Size(914, 434)
         Me.TabPage_journal.TabIndex = 1
         Me.TabPage_journal.Text = "Журнал ошибок"
         Me.TabPage_journal.UseVisualStyleBackColor = True
@@ -434,11 +419,12 @@ Partial Class frmMain
         Me.rtbLogTextBox.ContextMenuStrip = Me.cmsLog
         Me.rtbLogTextBox.DetectUrls = False
         Me.rtbLogTextBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rtbLogTextBox.Location = New System.Drawing.Point(3, 3)
+        Me.rtbLogTextBox.Location = New System.Drawing.Point(4, 3)
+        Me.rtbLogTextBox.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.rtbLogTextBox.Name = "rtbLogTextBox"
         Me.rtbLogTextBox.ReadOnly = True
         Me.rtbLogTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical
-        Me.rtbLogTextBox.Size = New System.Drawing.Size(752, 428)
+        Me.rtbLogTextBox.Size = New System.Drawing.Size(906, 428)
         Me.rtbLogTextBox.TabIndex = 4
         Me.rtbLogTextBox.Text = ""
         '
@@ -484,24 +470,27 @@ Partial Class frmMain
         Me.TabPage_captcha.Controls.Add(Me.btnSendCaptcha)
         Me.TabPage_captcha.Controls.Add(Me.picCaptcha)
         Me.TabPage_captcha.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage_captcha.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.TabPage_captcha.Name = "TabPage_captcha"
-        Me.TabPage_captcha.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage_captcha.Size = New System.Drawing.Size(758, 434)
+        Me.TabPage_captcha.Padding = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.TabPage_captcha.Size = New System.Drawing.Size(914, 434)
         Me.TabPage_captcha.TabIndex = 2
         Me.TabPage_captcha.Text = "xyz запрашивает капчу"
         '
         'txtCaptcha
         '
-        Me.txtCaptcha.Location = New System.Drawing.Point(166, 87)
+        Me.txtCaptcha.Location = New System.Drawing.Point(194, 87)
+        Me.txtCaptcha.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.txtCaptcha.MaxLength = 25
         Me.txtCaptcha.Name = "txtCaptcha"
-        Me.txtCaptcha.Size = New System.Drawing.Size(129, 20)
+        Me.txtCaptcha.Size = New System.Drawing.Size(150, 20)
         Me.txtCaptcha.TabIndex = 3
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(6, 90)
+        Me.Label1.Location = New System.Drawing.Point(7, 90)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(124, 13)
         Me.Label1.TabIndex = 2
@@ -509,9 +498,10 @@ Partial Class frmMain
         '
         'btnSendCaptcha
         '
-        Me.btnSendCaptcha.Location = New System.Drawing.Point(166, 113)
+        Me.btnSendCaptcha.Location = New System.Drawing.Point(194, 113)
+        Me.btnSendCaptcha.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.btnSendCaptcha.Name = "btnSendCaptcha"
-        Me.btnSendCaptcha.Size = New System.Drawing.Size(129, 26)
+        Me.btnSendCaptcha.Size = New System.Drawing.Size(150, 26)
         Me.btnSendCaptcha.TabIndex = 0
         Me.btnSendCaptcha.Text = "Отправить капчу"
         Me.btnSendCaptcha.UseVisualStyleBackColor = True
@@ -520,9 +510,10 @@ Partial Class frmMain
         '
         Me.picCaptcha.Image = CType(resources.GetObject("picCaptcha.Image"), System.Drawing.Image)
         Me.picCaptcha.InitialImage = CType(resources.GetObject("picCaptcha.InitialImage"), System.Drawing.Image)
-        Me.picCaptcha.Location = New System.Drawing.Point(166, 6)
+        Me.picCaptcha.Location = New System.Drawing.Point(194, 6)
+        Me.picCaptcha.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.picCaptcha.Name = "picCaptcha"
-        Me.picCaptcha.Size = New System.Drawing.Size(129, 75)
+        Me.picCaptcha.Size = New System.Drawing.Size(150, 75)
         Me.picCaptcha.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.picCaptcha.TabIndex = 1
         Me.picCaptcha.TabStop = False
@@ -536,7 +527,8 @@ Partial Class frmMain
         Me.msMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.msiFile, Me.msiOptions, Me.msiHelp, Me.msiNewPM})
         Me.msMain.Location = New System.Drawing.Point(0, 0)
         Me.msMain.Name = "msMain"
-        Me.msMain.Size = New System.Drawing.Size(952, 24)
+        Me.msMain.Padding = New System.Windows.Forms.Padding(7, 2, 0, 2)
+        Me.msMain.Size = New System.Drawing.Size(1111, 24)
         Me.msMain.TabIndex = 6
         Me.msMain.Text = "MenuStrip1"
         '
@@ -550,7 +542,7 @@ Partial Class frmMain
         'msiExit
         '
         Me.msiExit.Name = "msiExit"
-        Me.msiExit.Size = New System.Drawing.Size(108, 22)
+        Me.msiExit.Size = New System.Drawing.Size(180, 22)
         Me.msiExit.Text = "Выход"
         '
         'msiOptions
@@ -604,18 +596,18 @@ Partial Class frmMain
         'msiHomePage
         '
         Me.msiHomePage.Name = "msiHomePage"
-        Me.msiHomePage.Size = New System.Drawing.Size(273, 22)
+        Me.msiHomePage.Size = New System.Drawing.Size(271, 22)
         Me.msiHomePage.Text = "Домашняя страница TorrentChecker"
         '
         'ToolStripMenuItem12
         '
         Me.ToolStripMenuItem12.Name = "ToolStripMenuItem12"
-        Me.ToolStripMenuItem12.Size = New System.Drawing.Size(270, 6)
+        Me.ToolStripMenuItem12.Size = New System.Drawing.Size(268, 6)
         '
         'msiAbout
         '
         Me.msiAbout.Name = "msiAbout"
-        Me.msiAbout.Size = New System.Drawing.Size(273, 22)
+        Me.msiAbout.Size = New System.Drawing.Size(271, 22)
         Me.msiAbout.Text = "О программе"
         '
         'msiNewPM
@@ -691,14 +683,15 @@ Partial Class frmMain
         Me.stStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tssLabel})
         Me.stStrip.Location = New System.Drawing.Point(0, 534)
         Me.stStrip.Name = "stStrip"
-        Me.stStrip.Size = New System.Drawing.Size(952, 22)
+        Me.stStrip.Padding = New System.Windows.Forms.Padding(1, 0, 16, 0)
+        Me.stStrip.Size = New System.Drawing.Size(1111, 22)
         Me.stStrip.TabIndex = 8
         Me.stStrip.Text = "StatusStrip1"
         '
         'tssLabel
         '
         Me.tssLabel.Name = "tssLabel"
-        Me.tssLabel.Size = New System.Drawing.Size(121, 17)
+        Me.tssLabel.Size = New System.Drawing.Size(119, 17)
         Me.tssLabel.Text = "ToolStripStatusLabel1"
         '
         'tmrLastCheck
@@ -720,7 +713,8 @@ Partial Class frmMain
         '
         Me.lblShowNewVersion.AutoSize = True
         Me.lblShowNewVersion.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lblShowNewVersion.Location = New System.Drawing.Point(184, 36)
+        Me.lblShowNewVersion.Location = New System.Drawing.Point(215, 36)
+        Me.lblShowNewVersion.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblShowNewVersion.Name = "lblShowNewVersion"
         Me.lblShowNewVersion.Size = New System.Drawing.Size(89, 13)
         Me.lblShowNewVersion.TabIndex = 9
@@ -732,21 +726,31 @@ Partial Class frmMain
         Me.trayIconPM.Text = "NotifyIcon1"
         Me.trayIconPM.Visible = True
         '
+        'pGrpKWBox
+        '
+        Me.pGrpKWBox.Controls.Add(Me.grpKWBox)
+        Me.pGrpKWBox.Controls.Add(Me.btnAddKeyWord)
+        Me.pGrpKWBox.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pGrpKWBox.Location = New System.Drawing.Point(0, 0)
+        Me.pGrpKWBox.Name = "pGrpKWBox"
+        Me.pGrpKWBox.Size = New System.Drawing.Size(268, 460)
+        Me.pGrpKWBox.TabIndex = 5
+        '
         'frmMain
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(952, 556)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
+        Me.ClientSize = New System.Drawing.Size(1111, 556)
         Me.Controls.Add(Me.lblShowNewVersion)
         Me.Controls.Add(Me.stStrip)
         Me.Controls.Add(Me.msMain)
         Me.Controls.Add(Me.scMain)
         Me.Controls.Add(Me.txtSearch)
         Me.Controls.Add(Me.btnConnect)
-        Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.msMain
-        Me.MinimumSize = New System.Drawing.Size(600, 300)
+        Me.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.MinimumSize = New System.Drawing.Size(697, 300)
         Me.Name = "frmMain"
         Me.Text = "TorrentChecker"
         CType(Me.dgvTorrents, System.ComponentModel.ISupportInitialize).EndInit()
@@ -770,6 +774,7 @@ Partial Class frmMain
         Me.cmsTray.ResumeLayout(False)
         Me.stStrip.ResumeLayout(False)
         Me.stStrip.PerformLayout()
+        Me.pGrpKWBox.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -852,4 +857,5 @@ Partial Class frmMain
     Friend WithEvents cmsiMarkSelectedAsUnRead As ToolStripMenuItem
     Friend WithEvents cmsiMarkAllAsUnRead_t As ToolStripMenuItem
     Friend WithEvents cmsiMarkAllAsUnRead As ToolStripMenuItem
+    Friend WithEvents pGrpKWBox As Panel
 End Class

@@ -330,8 +330,8 @@ Partial Class frmAppOptions
         '
         'frmAppOptions
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(458, 493)
         Me.Controls.Add(Me.gprOtherBox)
         Me.Controls.Add(Me.grpRunBox)

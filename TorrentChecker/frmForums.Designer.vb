@@ -30,9 +30,9 @@ Partial Class frmForums
         Me.lblFilter = New System.Windows.Forms.Label()
         Me.txtFilter = New System.Windows.Forms.TextBox()
         Me.chkAutoLabel = New System.Windows.Forms.CheckBox()
+        Me.tlpToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.lsvForums = New TorrentChecker.clsListViewExt()
         Me.lsvFormats = New TorrentChecker.clsListViewExt()
-        Me.tlpToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.grpFormatsBox.SuspendLayout()
         Me.grpForumsBox.SuspendLayout()
         Me.SuspendLayout()
@@ -140,8 +140,8 @@ Partial Class frmForums
         '
         'frmForums
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(557, 475)
         Me.Controls.Add(Me.chkAutoLabel)
         Me.Controls.Add(Me.grpForumsBox)

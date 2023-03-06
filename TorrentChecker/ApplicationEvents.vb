@@ -6,9 +6,10 @@
     ' StartupNextInstance: Raised when launching a single-instance application and the application is already active. 
     ' NetworkAvailabilityChanged: Raised when the network connection is connected or disconnected.
     Partial Friend Class MyApplication
-        Private Sub TorrentChecker_StartupNextInstance(ByVal sender As Object, ByVal e As Microsoft.VisualBasic.ApplicationServices.StartupNextInstanceEventArgs) Handles Me.StartupNextInstance
-            e.BringToForeground = True
-            MsgBox("TorrentChecker уже запущен!", MsgBoxStyle.Information + vbOKOnly)
-        End Sub
+        'won't work with Sub Main()
+        'Private Sub TorrentChecker_StartupNextInstance(ByVal sender As Object, ByVal e As Microsoft.VisualBasic.ApplicationServices.StartupNextInstanceEventArgs) Handles Me.StartupNextInstance
+        '    e.BringToForeground = True
+        '    MsgBox("TorrentChecker уже запущен!", MsgBoxStyle.Information + vbOKOnly)
+        'End Sub
     End Class
 End Namespace
