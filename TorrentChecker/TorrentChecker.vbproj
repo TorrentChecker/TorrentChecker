@@ -115,6 +115,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="clsParse.vb" />
+    <Compile Include="clsRuTrackerAtom.vb" />
     <Compile Include="frmAppOptions.Designer.vb">
       <DependentUpon>frmAppOptions.vb</DependentUpon>
     </Compile>
@@ -148,6 +149,7 @@
     </Compile>
     <Compile Include="mdlMain.vb" />
     <Compile Include="mdlSettings.vb" />
+    <Compile Include="mdlStartup.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

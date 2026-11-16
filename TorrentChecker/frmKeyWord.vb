@@ -10,7 +10,7 @@ Public Class frmKeyWord
         chkRuTracker.Text = TrackerParams(Trackers.rutracker)("tracker_name")
         chkKinozal.Text = TrackerParams(Trackers.kinozal)("tracker_name")
 
-        lblTCCommandLineHelp.Text = "Следующие переменные подставятся автоматически:"
+        lblTCCommandLineHelp.Text = "Для .torrent-файлов Кинозала:"
         lblTCCommandLineHelp.Text &= vbCrLf & "%ClientPath% - торрент-клиент по умолчанию"
         lblTCCommandLineHelp.Text &= vbCrLf & "%TorrentName% - имя торрент-файла"
         lblTCCommandLineHelp.Text &= vbCrLf & "%TorrentPath% - путь к скачанному торрент-файлу"
@@ -89,13 +89,13 @@ Public Class frmKeyWord
         txtTorrentMaxSize.Text = "0"
         chkRuTracker.Checked = False
         chkKinozal.Checked = False
-        lblForumsRutracker.Text = "Выбрать форумы"
+        lblForumsRutracker.Text = "Разделы Atom"
         lblForumsKinozal.Text = "Выбрать форумы"
         lblForumsRutracker.Enabled = chkRuTracker.Checked
         lblRutrackerForumsCount.Enabled = chkRuTracker.Checked
         lblForumsKinozal.Enabled = chkKinozal.Checked
         lblKinozalForumsCount.Enabled = chkKinozal.Checked
-        ForumsSelected(Trackers.rutracker) = "-1"
+        ForumsSelected(Trackers.rutracker) = clsRuTrackerAtom.DefaultForum
         ForumsSelected(Trackers.kinozal) = "0"
         FormatsSelected(Trackers.kinozal) = "0"
         lblRutrackerForumsCount.Visible = False
@@ -103,7 +103,7 @@ Public Class frmKeyWord
         chkUniqueness.Checked = False
         chkPause.Checked = False
         chkSendToClient.Checked = False
-        txtTCCommandLine.Enabled = chkSendToClient.Checked
+        UpdateClientCommandControls()
         txtTCCommandLine.Text = "%ClientPath% /directory ""C:\PathToSave\%TorrentName%"" %TorrentPath%"
     End Sub
     Private Sub frmKeyWord_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
@@ -144,9 +144,10 @@ Public Class frmKeyWord
             chkSendToClient.Checked = CBool(KeyWordsParams(idx)("send_to_client"))
             txtTCCommandLine.Text = KeyWordsParams(idx)("client_command_line")
 
-            ShowSelectedForumsCount()
         End If
 
+        ShowSelectedForumsCount()
+        UpdateClientCommandControls()
         Me.Show()
         txtKeyWordLabel.Focus()
         txtKeyWordLabel.SelectAll()
@@ -231,17 +232,10 @@ Public Class frmKeyWord
     End Sub
 
     Private Sub chkRuTracker_CheckedChanged(sender As Object, e As EventArgs) Handles chkRuTracker.CheckedChanged
-        If chkRuTracker.Checked And TrackerParams(Trackers.rutracker)("credentials")("login_username") = "" Then
-            CredentialsControl_SELINDEX = 0
-            frmCredentials.ShowDialog()
-            Me.BringToFront()
-            'check again
-            If TrackerParams(Trackers.rutracker)("credentials")("login_username") = "" Then
-                chkRuTracker.Checked = False
-            End If
-        End If
+        UpdateClientCommandControls()
         lblForumsRutracker.Enabled = chkRuTracker.Checked
         lblRutrackerForumsCount.Enabled = chkRuTracker.Checked
+        ShowSelectedForumsCount()
     End Sub
 
     Private Sub chkKinozal_CheckedChanged(sender As Object, e As EventArgs) Handles chkKinozal.CheckedChanged
@@ -256,29 +250,24 @@ Public Class frmKeyWord
         End If
         lblForumsKinozal.Enabled = chkKinozal.Checked
         lblKinozalForumsCount.Enabled = chkKinozal.Checked
+        UpdateClientCommandControls()
     End Sub
 
-    Private Async Sub lblForumsRutracker_Click(sender As Object, e As EventArgs) Handles lblForumsRutracker.Click
-        TrackerSelectedID = Trackers.rutracker
+    Private Sub lblForumsRutracker_Click(sender As Object, e As EventArgs) Handles lblForumsRutracker.Click
+        Dim ids = clsRuTrackerAtom.ForumIds(ForumsSelected(Trackers.rutracker))
+        Dim input = Microsoft.VisualBasic.Interaction.InputBox(
+            "Введите номера разделов RuTracker через запятую. Номер указан после f= в ссылке на раздел." & vbCrLf &
+            "486 — Зимние виды спорта.",
+            "Разделы RuTracker для Atom", String.Join(", ", ids))
+        If input = "" Then Return
 
-        If TrackerParams(TrackerSelectedID)("forums").Rows.Count = 0 Then
-            grpTrackersBox.Enabled = False
-            lblForumsRutracker.Font = FONT_NORMAL
-            lblForumsRutracker.Text = "загружается список..."
-
-            Await GetForumsList(TrackerSelectedID)
-
-            lblForumsRutracker.Text = "Выбрать форумы"
-            lblForumsRutracker.Font = FONT_UNDERLINE
-            grpTrackersBox.Enabled = True
+        ids = clsRuTrackerAtom.ForumIds(input)
+        If Not ids.All(AddressOf clsRuTrackerAtom.IsForumId) Then
+            MsgBox("Укажите числовые ID разделов через запятую.", MsgBoxStyle.Exclamation)
+            Return
         End If
-
-        If TrackerParams(TrackerSelectedID)("forums").Rows.Count <> 0 Then
-            frmForums.ShowDialog()
-            Me.BringToFront()
-            ShowSelectedForumsCount()
-            AutoLabeling()
-        End If
+        ForumsSelected(Trackers.rutracker) = String.Join(",", ids)
+        ShowSelectedForumsCount()
     End Sub
 
     Private Async Sub lblForumsKinozal_Click(sender As Object, e As EventArgs) Handles lblForumsKinozal.Click
@@ -308,15 +297,9 @@ Public Class frmKeyWord
         Dim cnt As Integer 'forums count (for kinozal always 0 or 1 atm)
         Dim cnt_f As Integer 'formats count (always 0 or 1 atm)
 
-        cnt = Split(ForumsSelected(Trackers.rutracker), ",").Count()
-        If Split(ForumsSelected(Trackers.rutracker), ",").Contains("-1") Then cnt = 0
-
-        If cnt > 0 Then
-            lblRutrackerForumsCount.Text = "Выбрано форумов: " & cnt
-            lblRutrackerForumsCount.Visible = True
-        Else
-            lblRutrackerForumsCount.Visible = False
-        End If
+        Dim atomForums = clsRuTrackerAtom.ForumIds(ForumsSelected(Trackers.rutracker))
+        lblRutrackerForumsCount.Text = If(atomForums.Length = 1, "Раздел " & atomForums(0), "Разделов: " & atomForums.Length)
+        lblRutrackerForumsCount.Visible = chkRuTracker.Checked
 
         cnt = Split(ForumsSelected(Trackers.kinozal), ",").Count()
         cnt_f = Split(FormatsSelected(Trackers.kinozal), ",").Count()
@@ -393,7 +376,7 @@ Public Class frmKeyWord
             Return False
         End If
 
-        If chkSendToClient.Checked AndAlso txtTCCommandLine.TextLength < 40 Then
+        If chkSendToClient.Checked AndAlso chkKinozal.Checked AndAlso txtTCCommandLine.TextLength < 40 Then
             MsgBox("Командная строка для торрент-клиента слишком короткая! Пожалуйста, проверьте корректность написания", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly)
             txtTCCommandLine.SelectAll()
             txtTCCommandLine.Focus()
@@ -430,7 +413,7 @@ Public Class frmKeyWord
     End Sub
 
     Private Sub chkSendToClient_CheckedChanged(sender As Object, e As EventArgs) Handles chkSendToClient.CheckedChanged
-        txtTCCommandLine.Enabled = chkSendToClient.Checked
+        UpdateClientCommandControls()
         If txtTCCommandLine.Enabled Then
             txtTCCommandLine.SelectAll()
             txtTCCommandLine.Focus()
@@ -449,6 +432,14 @@ Public Class frmKeyWord
         ret = MsgBox("Восстановить исходную командную строку для qBittorrent?", MsgBoxStyle.Question + MsgBoxStyle.YesNo + MsgBoxStyle.DefaultButton2)
         If ret = MsgBoxResult.No Then Exit Sub
         txtTCCommandLine.Text = "%ClientPath% --save-path=""C:\PathToSave"" --skip-dialog=true %TorrentPath%"
+    End Sub
+
+    Private Sub UpdateClientCommandControls()
+        txtTCCommandLine.Enabled = chkSendToClient.Checked AndAlso chkKinozal.Checked
+        lblResetToUT.Enabled = txtTCCommandLine.Enabled
+        lblResetToQB.Enabled = txtTCCommandLine.Enabled
+        lblTCCommandLineHelp.Visible = chkKinozal.Checked
+        tlpToolTip.SetToolTip(chkSendToClient, "RuTracker отправляет magnet-ссылку приложению по умолчанию в Windows. Командная строка используется для .torrent-файлов Кинозала.")
     End Sub
 
     Private Sub txtTCCommandLine_LostFocus(sender As Object, e As EventArgs) Handles txtTCCommandLine.LostFocus
