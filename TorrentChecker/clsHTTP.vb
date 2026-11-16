@@ -63,7 +63,7 @@ Public Class clsHTTP
         End Set
     End Property
 
-    Public Async Function HTTPGet(ByVal Url As String, Optional ByVal GetData As Dictionary(Of String, String) = Nothing, Optional ByVal asBinary As Boolean = False) As Task(Of HTTPResult)
+    Public Async Function HTTPGet(ByVal Url As String, Optional ByVal GetData As Dictionary(Of String, String) = Nothing, Optional ByVal asBinary As Boolean = False, Optional ByVal requireSuccessStatus As Boolean = False) As Task(Of HTTPResult)
         Dim token As CancellationToken = cts.Token
 
         Try
@@ -77,6 +77,7 @@ Public Class clsHTTP
                 '.DefaultRequestHeaders.Accept.Add(New Headers.MediaTypeWithQualityHeaderValue("text/html"))
                 .DefaultRequestHeaders.Add("User-Agent", APP_NAME)
                 Using Response As HttpResponseMessage = Await http_request.GetAsync(Url, token)
+                    If requireSuccessStatus Then Response.EnsureSuccessStatusCode()
                     If asBinary Then
                         ret.ResultB = Await Response.Content.ReadAsByteArrayAsync
                     Else

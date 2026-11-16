@@ -4,6 +4,7 @@ Imports System.Text.RegularExpressions
 Imports System.Threading
 
 Public Class frmMain
+    Private ReadOnly openMagnetMenu As New ToolStripMenuItem("Открыть magnet в торрент-клиенте")
     Private HTTP As New clsHTTP
     Private HTTPResult As clsHTTP.HTTPResult
     Private HTTPUpdate As New clsHTTP
@@ -24,6 +25,8 @@ Public Class frmMain
 
     Public Sub New()
         InitializeComponent()
+        cmsTorrents.Items.Insert(cmsTorrents.Items.IndexOf(cmsiCopyLink) + 1, openMagnetMenu)
+        AddHandler openMagnetMenu.Click, AddressOf OpenSelectedMagnet
         For Each ctrl As Control In Me.Controls
             ctrl.Font = FONT_NORMAL
         Next
@@ -160,16 +163,6 @@ Public Class frmMain
     End Sub
 
     Private Sub btnConnect_Click(sender As Object, e As EventArgs) Handles btnConnect.Click
-        'check for credentials
-        If TrackerParams(Trackers.rutracker)("credentials")("login_username") = "" AndAlso TrackerParams(Trackers.kinozal)("credentials")("username") = "" Then
-            frmCredentials.ShowDialog()
-            Me.BringToFront()
-            'check again
-            If TrackerParams(Trackers.rutracker)("credentials")("login_username") = "" AndAlso TrackerParams(Trackers.kinozal)("credentials")("username") = "" Then
-                Exit Sub
-            End If
-        End If
-
         'check for keywords
         If UBound(KwListToParamsMapping) < 1 Then
             MsgBox("Добавьте как минимум одно ключевое слово!", MsgBoxStyle.Exclamation + MsgBoxStyle.OkOnly)
@@ -199,11 +192,16 @@ Public Class frmMain
         Dim operation_canceled As Boolean = False
         Dim kw_idx As Integer = 1
         Dim logged_result As LoggedResult
+        Dim atomFeeds As New Dictionary(Of String, List(Of clsRuTrackerAtom))
 
-        'cancel all connections (if any)
-        Dim cts As CancellationToken = HTTP.Cancel()
+        Dim cts As CancellationToken
 
         Try
+            'Cancel an earlier scan and take the token after applying proxy settings.
+            HTTP.UseProxy = CBool(ProxySettings("use_proxy"))
+            If CBool(ProxySettings("use_proxy")) Then HTTP.SetProxy(ProxySettings)
+            cts = HTTP.Cancel()
+
             'reset time counters
             tmrStartChecking.Enabled = False
             LAST_CHECK_TIME = UNIX_TIME_ORIGIN
@@ -233,13 +231,6 @@ Public Class frmMain
 
                 params_idx = KwListToParamsMapping(kw_idx)
 
-                If ProxySettings("use_proxy") Then
-                    HTTP.UseProxy = True
-                    HTTP.SetProxy(ProxySettings)
-                Else
-                    HTTP.UseProxy = False
-                End If
-
                 'show working status image
                 dgvKeyWords.Rows(kw_idx).Cells("kw_img").Value = IMAGE_CLOCK
 
@@ -251,7 +242,13 @@ Public Class frmMain
                 For Each tracker_id As Trackers In System.Enum.GetValues(GetType(Trackers))
                     tracker_name = TrackerParams(tracker_id)("tracker_name")
                     Try
-                        If CBool(local_KeyWordsParams(tracker_id.ToString)) AndAlso Not TrackerParams(tracker_id)("is_tracker_failure") Then
+                        If Not CBool(local_KeyWordsParams(tracker_id.ToString)) Then Continue For
+                        If tracker_id = Trackers.rutracker Then
+                            Await AddRuTrackerAtomMatches(new_torrents_dt, local_KeyWordsParams, atomFeeds, cts)
+                            If cts.IsCancellationRequested Then Exit For
+                            Continue For
+                        End If
+                        If Not TrackerParams(tracker_id)("is_tracker_failure") Then
                             If Not TrackerParams(tracker_id)("is_logged") Then
                                 HTTPResult = Await HTTP.HTTPPost(TrackerParams(tracker_id)("login_url"), TrackerParams(tracker_id)("credentials"))
                                 If HTTPResult.Success Then
@@ -277,28 +274,16 @@ Public Class frmMain
 
                                 SearchParams.Clear()
 
-                                If tracker_id = Trackers.rutracker Then
-                                    SearchParams.Add("f", local_KeyWordsParams("forums_rutracker"))
-                                    SearchParams.Add("tst", "-1")
-                                    SearchParams.Add("o", "1")
-                                    SearchParams.Add("s", "2")
-                                    SearchParams.Add("tm", "-1")
-                                    SearchParams.Add("pn", "")
-                                    SearchParams.Add("nm", local_KeyWordsParams("search"))
+                                SearchParams.Add("g", "0")
+                                SearchParams.Add("c", local_KeyWordsParams("forums_kinozal"))
+                                SearchParams.Add("v", local_KeyWordsParams("formats_kinozal"))
+                                SearchParams.Add("d", "0")
+                                SearchParams.Add("w", "0")
+                                SearchParams.Add("t", "0")
+                                SearchParams.Add("f", "0")
+                                SearchParams.Add("s", local_KeyWordsParams("search"))
 
-                                    HTTPResult = Await HTTP.HTTPPost(TrackerParams(tracker_id)("search_url"), SearchParams)
-                                ElseIf tracker_id = Trackers.kinozal Then
-                                    SearchParams.Add("g", "0")
-                                    SearchParams.Add("c", local_KeyWordsParams("forums_kinozal"))
-                                    SearchParams.Add("v", local_KeyWordsParams("formats_kinozal"))
-                                    SearchParams.Add("d", "0")
-                                    SearchParams.Add("w", "0")
-                                    SearchParams.Add("t", "0")
-                                    SearchParams.Add("f", "0")
-                                    SearchParams.Add("s", local_KeyWordsParams("search"))
-
-                                    HTTPResult = Await HTTP.HTTPGet(TrackerParams(tracker_id)("search_url"), SearchParams)
-                                End If
+                                HTTPResult = Await HTTP.HTTPGet(TrackerParams(tracker_id)("search_url"), SearchParams)
 
                                 If HTTPResult.Success Then
                                     TrackerParseResult = TrackerParse.ParseResults(HTTPResult.Result, tracker_id)
@@ -402,7 +387,9 @@ Public Class frmMain
                     'calculate correct torrent size in bytes
                     dr(Columns.torrent_size_bytes.ToString) = GetTorrentSizeInBytes(dr(Columns.torrent_size.ToString), GetUniformDimension(dr(Columns.torrent_size_dimension.ToString)))
                     'combine torrent size and dimension
-                    dr(Columns.torrent_size_dimension.ToString) = dr(Columns.torrent_size.ToString) & " " & GetUniformDimension(dr(Columns.torrent_size_dimension.ToString))
+                    dr(Columns.torrent_size_dimension.ToString) = If(CStr(dr(Columns.torrent_size_dimension.ToString)) = "",
+                                                                       "",
+                                                                       dr(Columns.torrent_size.ToString) & " " & GetUniformDimension(dr(Columns.torrent_size_dimension.ToString)))
                     'set current datetime according to timezone
                     dr(Columns.found_datetime.ToString) = (UNIX_TIME_ORIGIN.AddSeconds(dr(Columns.found_unix_datetime.ToString)) + DateTimeOffset.Now.Offset).ToString(DATETIME_FORMAT)
                     'set keyword_id
@@ -488,17 +475,13 @@ Public Class frmMain
                         tracker_name = TrackerParams(tracker_id)("tracker_name")
                         Try
                             If KeyWordsParams.ContainsKey(params_idx) AndAlso CBool(KeyWordsParams(params_idx)("send_to_client")) Then 'user can change/delete the option/keyword at any time
-                                Dim command_line As String = KeyWordsParams(params_idx)("client_command_line")
-                                SearchParams.Clear()
-
+                                Dim download As String = CStr(dr(Columns.torrent_dl.ToString))
                                 If tracker_id = Trackers.rutracker Then
-                                    SearchParams.Add("t", dr(Columns.torrent_dl.ToString))
-                                    SearchParams.Add("form_token", TrackerParams(tracker_id)("forum_token"))
-
-                                    HTTPResult = Await HTTP.HTTPPost(TrackerParams(tracker_id)("download_url") & dr(Columns.torrent_dl.ToString), SearchParams, True)
-                                ElseIf tracker_id = Trackers.kinozal Then
-                                    HTTPResult = Await HTTP.HTTPGet(TrackerParams(tracker_id)("download_url") & dr(Columns.torrent_dl.ToString), Nothing, True)
+                                    OpenMagnet(download)
+                                    Continue For
                                 End If
+                                Dim command_line As String = KeyWordsParams(params_idx)("client_command_line")
+                                HTTPResult = Await HTTP.HTTPGet(TrackerParams(tracker_id)("download_url") & download, Nothing, True)
 
                                 If HTTPResult.Success Then
                                     If HTTPResult.Headers.ContentType.MediaType = "application/x-bittorrent" Then
@@ -513,7 +496,7 @@ Public Class frmMain
                                 End If
                             End If
                         Catch ex As Exception
-                            LogOutput(String.Format("{0} ({1}): {2}", "Ошибка скачивания торрент-файла", tracker_name, GetProperExceptionText(ex)))
+                            LogOutput(String.Format("{0} ({1}): {2}", "Ошибка передачи раздачи", tracker_name, GetProperExceptionText(ex)))
                         End Try
                     Next
                 End If
@@ -547,6 +530,62 @@ Public Class frmMain
 
             If Not cts.IsCancellationRequested Then SaveSettings()
         End Try
+    End Sub
+
+    Private Async Function AddRuTrackerAtomMatches(destination As DataTable, rule As Dictionary(Of String, String),
+                                                  feeds As Dictionary(Of String, List(Of clsRuTrackerAtom)),
+                                                  token As CancellationToken) As Task
+        Dim seen As New HashSet(Of String)
+        Dim checkedAt As Long = CLng((DateTime.UtcNow - UNIX_TIME_ORIGIN).TotalSeconds)
+        For Each forumId As String In clsRuTrackerAtom.ForumIds(rule("forums_rutracker"))
+            If token.IsCancellationRequested Then Return
+            If Not clsRuTrackerAtom.IsForumId(forumId) Then
+                LogOutput("Некорректный ID раздела RuTracker: " & forumId)
+                Continue For
+            End If
+            If Not feeds.ContainsKey(forumId) Then
+                feeds(forumId) = Nothing
+                Try
+                    Dim result = Await HTTP.HTTPGet(clsRuTrackerAtom.FeedBase & forumId & ".atom", Nothing, True, True)
+                    If Not result.Success OrElse token.IsCancellationRequested Then Return
+                    Using buffer As New MemoryStream(result.ResultB)
+                        Using reader As New StreamReader(buffer, Encoding.UTF8)
+                            feeds(forumId) = clsRuTrackerAtom.Read(reader.ReadToEnd())
+                        End Using
+                    End Using
+                Catch ex As Exception
+                    LogOutput("Ошибка Atom-ленты RuTracker (раздел " & forumId & "): " & GetProperExceptionText(ex))
+                End Try
+            End If
+            If feeds(forumId) Is Nothing Then Continue For
+
+            For Each entry In feeds(forumId)
+                If Not entry.Matches(rule("search")) OrElse Not seen.Add(entry.TopicId & ":" & entry.InfoHash) Then Continue For
+
+                If Not destination.Columns.Contains(Columns.torrent_size.ToString) Then
+                    destination.Columns.Add(Columns.torrent_size.ToString, GetType(Single))
+                End If
+                Dim row = destination.NewRow()
+                row(Columns.tracker_name.ToString) = TrackerParams(Trackers.rutracker)("tracker_name")
+                row(Columns.tracker_id.ToString) = Trackers.rutracker
+                row(Columns.found_unix_datetime.ToString) = checkedAt
+                row(Columns.torrent_status.ToString) = If(entry.Title.StartsWith("[Обновлено]", StringComparison.OrdinalIgnoreCase), "Обновлено", "")
+                row(Columns.forum_name.ToString) = entry.Forum
+                row(Columns.topic_id.ToString) = entry.TopicId
+                row(Columns.topic_name.ToString) = entry.Title
+                row(Columns.topic_author.ToString) = entry.Author
+                row(Columns.torrent_dl.ToString) = entry.Magnet
+                row(Columns.torrent_unique_identifier.ToString) = entry.InfoHash
+                row(Columns.torrent_size.ToString) = entry.Size
+                row(Columns.torrent_size_dimension.ToString) = entry.SizeUnit
+                destination.Rows.Add(row)
+            Next
+        Next
+    End Function
+
+    Private Sub OpenMagnet(magnet As String)
+        If clsRuTrackerAtom.MagnetHash(magnet) = "" Then Throw New FormatException("Некорректная magnet-ссылка RuTracker.")
+        Process.Start(New ProcessStartInfo(magnet) With {.UseShellExecute = True})
     End Sub
 
     Private Sub SaveTorrent(ByVal torrent_body As Byte(), ByVal command_line As String, ByVal tracker_name As String)
@@ -996,6 +1035,24 @@ Public Class frmMain
                 mnu.Enabled = True
             Next
         End If
+        openMagnetMenu.Visible = SelectedMagnet() <> ""
+    End Sub
+
+    Private Function SelectedMagnet() As String
+        If dgvTorrents.SelectedRows.Count <> 1 Then Return ""
+        Dim selected = TryCast(dgvTorrents.SelectedRows(0).DataBoundItem, DataRowView)
+        If selected Is Nothing OrElse CType(selected.Row(Columns.tracker_id.ToString), Trackers) <> Trackers.rutracker Then Return ""
+        Dim magnet As String = selected.Row(Columns.torrent_dl.ToString).ToString()
+        Return If(clsRuTrackerAtom.MagnetHash(magnet) = "", "", magnet)
+    End Function
+
+    Private Sub OpenSelectedMagnet(sender As Object, e As EventArgs)
+        Try
+            Dim magnet As String = SelectedMagnet()
+            If magnet <> "" Then OpenMagnet(magnet)
+        Catch ex As Exception
+            MsgBox("Не удалось открыть magnet-ссылку." & vbCrLf & GetProperExceptionText(ex), MsgBoxStyle.Exclamation)
+        End Try
     End Sub
 
     Private Sub cmsiCopyLink_Click(sender As Object, e As EventArgs) Handles cmsiCopyLink.Click

@@ -69,17 +69,6 @@
             End If
         End If
 
-        If txtLogin_rt.TextLength = 0 And txtLogin_kz.TextLength = 0 Then
-            MsgBox("Введите данные от одного из трекеров!", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly)
-            Select Case tbCredentialsControl.SelectedIndex
-                Case 0
-                    txtLogin_rt.Focus()
-                Case 1
-                    txtLogin_kz.Focus()
-            End Select
-            Return False
-        End If
-
         If txtLogin_rt.TextLength > 0 And txtPassword_rt.TextLength = 0 Then
             MsgBox("Пароль от " & TrackerParams(Trackers.rutracker)("tracker_name") & " не может быть пустым!", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly)
             tbCredentialsControl.SelectedTab = TabPage_rutracker
@@ -106,18 +95,6 @@
             tbCredentialsControl.SelectedTab = TabPage_kinozal
             txtLogin_kz.Focus()
             Return False
-        End If
-
-        If txtLogin_rt.TextLength = 0 And txtPassword_rt.TextLength = 0 Then
-            For Each idx As Integer In KeyWordsParams.Keys
-                If idx = 0 Then Continue For
-                If CBool(KeyWordsParams(idx)(Trackers.rutracker.ToString)) Then
-                    MsgBox("Нельзя удалять данные от " & TrackerParams(Trackers.rutracker)("tracker_name") & ", т.к. он используется для " & KeyWordsParams(idx)("label"), MsgBoxStyle.Critical + MsgBoxStyle.OkOnly)
-                    tbCredentialsControl.SelectedTab = TabPage_rutracker
-                    txtLogin_rt.Focus()
-                    Return False
-                End If
-            Next
         End If
 
         If txtLogin_kz.TextLength = 0 And txtPassword_kz.TextLength = 0 Then

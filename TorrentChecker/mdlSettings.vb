@@ -2,12 +2,6 @@
 Imports System.IO.Compression
 
 Module mdlSettings
-    Public Sub Main()
-        Application.EnableVisualStyles()
-        Application.SetCompatibleTextRenderingDefault(False)
-        Application.Run(frmMain)
-    End Sub
-
     Private AppSettingsPath As String = Path.Combine(Application.StartupPath, "settings.dat")
     Public LogPath As String = Path.Combine(Application.StartupPath, "log.txt")
     Private formatter As New Runtime.Serialization.Formatters.Binary.BinaryFormatter()
